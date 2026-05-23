@@ -9,18 +9,19 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F0E8;min-height:100vh;padding-bottom:80px}
-:root{--gold:#C9A84C;--cream:#F5F0E8;--dark:#1A1A1A;--border:#DDD8CE;--muted:#6B6560;--card:#FDFAF5}
-.hdr{text-align:center;padding:16px 16px 12px;border-bottom:1px solid var(--border)}
+:root{--gold:#C9A84C;--cream:#F5F0E8;--dark:#1A1A1A;--border:#DDD8CE;--muted:#6B6560;--card:#FDFAF5;--green:#3A7C59;--red:#9B3A3A}
+.hdr{text-align:center;padding:16px 16px 12px;border-bottom:1px solid var(--border);background:var(--cream);position:sticky;top:0;z-index:10}
 .hdr .eye{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
-.hdr h1{font-family:Georgia,serif;font-size:22px;font-weight:600;color:var(--dark);margin-bottom:2px}
-.hdr .sub{font-size:12px;color:var(--muted)}
-#status{text-align:center;font-size:12px;font-weight:600;padding:5px;min-height:22px}
-.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.hdr h1{font-family:Georgia,serif;font-size:20px;font-weight:600;color:var(--dark);margin-bottom:2px}
+.hdr .sub{font-size:11px;color:var(--muted)}
+#status{text-align:center;font-size:12px;font-weight:600;padding:4px;min-height:20px;background:var(--cream)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch;background:var(--cream);border-bottom:1px solid var(--border)}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid var(--border);cursor:pointer;white-space:nowrap;font-size:11px;font-weight:600;background:var(--card);color:var(--muted);font-family:-apple-system,sans-serif;-webkit-appearance:none}
+.tab{flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid var(--border);cursor:pointer;white-space:nowrap;font-size:11px;font-weight:600;background:var(--card);color:var(--muted);-webkit-appearance:none}
 .tab.active{background:var(--dark);color:var(--cream);border-color:var(--dark)}
 .content{padding:0 16px}
-.info{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+/* Info card */
+.info{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin:12px 0}
 .info-time{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px}
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-bottom:10px}
 .il{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:2px}
@@ -28,15 +29,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F0E8;
 .iv.gold{color:var(--gold)}.iv.sm{font-size:11px}
 .pg-row{display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid var(--border)}
 .pg-row span{font-size:10px;color:var(--muted);white-space:nowrap;text-transform:uppercase}
-.pg-row input{flex:1;font-size:12px;color:var(--dark);background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:6px 8px;outline:none;font-family:-apple-system,sans-serif}
-.pg-row a{font-size:20px;text-decoration:none}
-.setup-box{margin:16px;padding:20px;background:var(--card);border:2px solid var(--gold);border-radius:12px;text-align:center}
-.setup-box h2{font-family:Georgia,serif;font-size:18px;color:var(--dark);margin-bottom:12px}
-.setup-box p{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5}
-.setup-box input{width:100%;font-size:13px;color:var(--dark);background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:10px;outline:none;margin-bottom:12px;font-family:-apple-system,sans-serif}
-.btn{display:inline-block;padding:12px 24px;border-radius:24px;border:none;cursor:pointer;font-size:14px;font-weight:600;font-family:-apple-system,sans-serif;-webkit-appearance:none}
-.btn-gold{background:var(--gold);color:white}
-.btn-dark{background:var(--dark);color:var(--cream);width:100%}
+.pg-row input{flex:1;font-size:12px;color:var(--dark);background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:6px 8px;outline:none}
+/* Category */
 .cat{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden}
 .cat-hdr{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;border-bottom:1px solid var(--border)}
 .cat-hdr.closed{border-bottom:none}
@@ -46,16 +40,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F0E8;
 .crit:last-child{border-bottom:none}
 .crit-lbl{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:10px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
 .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px}
-.must{background:#FFE5E5;color:#9B3A3A}.imp{background:#E8D5A3;color:#A07820}
+.must{background:#FFE5E5;color:var(--red)}.imp{background:#E8D5A3;color:#A07820}
 .stars{display:flex;gap:8px;margin-bottom:8px}
 .star{font-size:30px;cursor:pointer;color:var(--border);user-select:none;line-height:1}
 .star.on{color:var(--gold)}
 textarea{width:100%;font-size:13px;color:var(--dark);background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:7px 10px;resize:vertical;outline:none;min-height:40px;font-family:-apple-system,sans-serif;-webkit-appearance:none;box-sizing:border-box}
 .togs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.tog{padding:8px 16px;border-radius:20px;border:1px solid var(--border);cursor:pointer;font-size:13px;font-weight:600;background:var(--cream);color:var(--muted);font-family:-apple-system,sans-serif;-webkit-appearance:none}
+.tog{padding:8px 16px;border-radius:20px;border:1px solid var(--border);cursor:pointer;font-size:13px;font-weight:600;background:var(--cream);color:var(--muted);-webkit-appearance:none}
 .tog.on{background:var(--dark);color:var(--cream);border-color:var(--dark)}
 .num-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.num-row input{width:100px;font-size:16px;font-weight:700;color:var(--dark);background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:7px 10px;outline:none;font-family:-apple-system,sans-serif;-webkit-appearance:none}
+.num-row input{width:100px;font-size:16px;font-weight:700;color:var(--dark);background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:7px 10px;outline:none;-webkit-appearance:none}
 .num-unit{font-size:12px;color:var(--muted)}
 .calc{padding:10px 14px;background:#E8D5A3;border:1px solid var(--gold);border-radius:8px;margin-bottom:8px;font-size:15px;font-weight:700;color:var(--dark);font-family:Georgia,serif}
 .dark-box{background:var(--dark);border-radius:12px;padding:18px;margin-top:10px;color:#F5F0E8}
@@ -66,13 +60,31 @@ textarea{width:100%;font-size:13px;color:var(--dark);background:var(--cream);bor
 .score-val{font-size:30px;font-family:Georgia,serif;color:var(--gold)}
 .bar{height:6px;background:#333;border-radius:3px;overflow:hidden}
 .bar-fill{height:100%;background:var(--gold);border-radius:3px}
-.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:80vh;gap:16px}
+/* Media section */
+.media-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.media-title{font-family:Georgia,serif;font-size:15px;font-weight:600;color:var(--dark);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.upload-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-size:13px;font-weight:600;cursor:pointer;-webkit-appearance:none}
+.upload-btn:active{background:var(--gold);color:white}
+#fileInput{display:none}
+.media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.media-thumb{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:#ddd}
+.media-thumb img{width:100%;height:100%;object-fit:cover}
+.media-thumb .del-btn{position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.6);color:white;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.media-thumb .video-badge{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,0.6);color:white;font-size:10px;padding:2px 6px;border-radius:8px}
+.media-empty{font-size:13px;color:var(--muted);text-align:center;padding:16px 0}
+.uploading{font-size:12px;color:var(--gold);text-align:center;padding:8px}
+.loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:80vh;gap:16px}
 .loading-icon{font-size:40px}
 .loading-txt{font-family:Georgia,serif;font-size:18px;color:var(--gold)}
+/* Setup */
+.setup{margin:20px 16px;padding:20px;background:var(--card);border:2px solid var(--gold);border-radius:12px}
+.setup h2{font-family:Georgia,serif;font-size:18px;color:var(--dark);margin-bottom:10px}
+.setup p{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6}
+.setup input{width:100%;font-size:13px;color:var(--dark);background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:10px;outline:none;margin-bottom:12px;font-family:-apple-system,sans-serif}
+.btn-gold{display:block;width:100%;padding:13px;border-radius:24px;border:none;cursor:pointer;font-size:14px;font-weight:700;background:var(--gold);color:white;-webkit-appearance:none}
 </style>
 </head>
 <body>
-
 <div class="hdr">
   <div class="eye">Relocation · Singapore 2026</div>
   <h1>Apartment Assessment</h1>
@@ -82,6 +94,9 @@ textarea{width:100%;font-size:13px;color:var(--dark);background:var(--cream);bor
 <div id="app"></div>
 
 <script>
+// ── CONFIG — paste your Apps Script URL here after deploying ─────────────────
+let API_URL = localStorage.getItem("sg_api_url") || "";
+
 const CATS=[
   {icon:"📍",title:"Location & Connectivity",cr:[
     {l:"Proximity to MRT station",p:"must"},{l:"Commute to workplace / CBD",p:"must"},
@@ -145,15 +160,10 @@ const BASES=[
   {id:16,name:"M1 B21 #30-15", full:"Marina One Blk 21 #30-15",     time:"6:00 PM", top:2017,units:1042,sqft:1539,rent:13800,beds:3,avail:"1 July",    furn:"Fully"},
 ];
 
-// ── Storage: JSONBlob (shared across all users) ───────────────────────────────
-// JSONBlob ID is stored in localStorage so setup only happens once
-const BLOB_KEY = "sg26_blob_id";
-let BLOB_ID = localStorage.getItem(BLOB_KEY) || "";
-let D = {}, activeId = 1, openCats = {}, saveTimer = null, isSyncing = false;
+let D={}, activeId=1, openCats={}, media={}, saveTimer=null;
 
-function emptyApt(b){
-  return {id:b.id,ratings:{},notes:{},fields:{sqft:String(b.sqft),rent:String(b.rent)},overall:"",pgLink:""};
-}
+function emptyApt(b){return{id:b.id,ratings:{},notes:{},fields:{sqft:String(b.sqft),rent:String(b.rent)},overall:"",pgLink:""};}
+
 function ensureD(){
   BASES.forEach(b=>{
     if(!D[b.id])D[b.id]=emptyApt(b);
@@ -161,42 +171,72 @@ function ensureD(){
       if(!D[b.id].fields.sqft)D[b.id].fields.sqft=String(b.sqft);
       if(!D[b.id].fields.rent)D[b.id].fields.rent=String(b.rent);}
   });
-  CATS.forEach((_,ci)=>{if(openCats[ci]===undefined)openCats[ci]=true;});
+  CATS.forEach((_,ci)=>{if(openCats[ci]===undefined)openCats[ci]=ci<2;});
 }
 
-const JSONBIN_BASE = "https://api.jsonbin.io/v3";
-const JSONBIN_ACCESS = "$2a$10$FVTP8Jwn3d0RPCQcZfSgh.NCi/c1QnI7GhuSYRfKOatn0J7z6ynHO";
+// ── API calls ─────────────────────────────────────────────────────────────────
+async function apiGet(params){
+  const url=API_URL+"?"+new URLSearchParams(params);
+  const r=await fetch(url);
+  if(!r.ok)throw new Error(r.status);
+  return r.json();
+}
+async function apiPost(body){
+  const r=await fetch(API_URL,{method:"POST",body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(r.status);
+  return r.json();
+}
 
-async function fetchBlob(){
-  const r=await fetch(JSONBIN_BASE+"/b/"+BLOB_ID+"/latest",{
-    headers:{"X-Access-Key":JSONBIN_ACCESS}
-  });
-  if(!r.ok)throw new Error("fetch failed");
-  const json=await r.json();
-  return json.record;
+// ── Load all data from Sheet ──────────────────────────────────────────────────
+async function loadAll(){
+  const res=await apiGet({action:"read"});
+  if(res.ok && res.data){
+    if(res.data.viewingData){
+      try{const parsed=JSON.parse(res.data.viewingData);D=parsed.D||{};activeId=parsed.activeId||1;}catch(e){}
+    }
+  }
+  ensureD();
 }
-async function putBlob(data){
-  const r=await fetch(JSONBIN_BASE+"/b/"+BLOB_ID,{
-    method:"PUT",
-    headers:{"Content-Type":"application/json","X-Access-Key":JSONBIN_ACCESS},
-    body:JSON.stringify(data)
-  });
-  if(!r.ok)throw new Error("put failed");
+
+// ── Save all data to Sheet ────────────────────────────────────────────────────
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(async()=>{
+    showStatus("Saving…","var(--gold)",true);
+    try{
+      await apiPost({action:"write",key:"viewingData",value:JSON.stringify({D,activeId})});
+      showStatus("✓ Saved & synced","var(--green)");
+    }catch(e){
+      // Fallback: save locally
+      try{localStorage.setItem("sg26_local",JSON.stringify({D,activeId}));}catch(e2){}
+      showStatus("⚠ Saved locally (no internet)","#E8A020",true);
+    }
+  },700);
 }
-async function createBlob(){
-  const r=await fetch(JSONBIN_BASE+"/b",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
-      "X-Access-Key":JSONBIN_ACCESS,
-      "X-Bin-Name":"giuseppe-sg-2026",
-      "X-Bin-Private":"false"
-    },
-    body:JSON.stringify({D:{},activeId:1})
+
+// ── Load media for current apt ────────────────────────────────────────────────
+async function loadMedia(aptName){
+  try{
+    const res=await apiGet({action:"listMedia",apt:aptName});
+    if(res.ok)return res.files||[];
+  }catch(e){}
+  return[];
+}
+
+// ── Upload file ───────────────────────────────────────────────────────────────
+async function uploadFile(aptName,file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=async function(e){
+      const base64=e.target.result.split(",")[1];
+      try{
+        const res=await apiPost({action:"upload",apt:aptName,fileName:file.name,mimeType:file.type,data:base64});
+        if(res.ok)resolve(res.file);
+        else reject(new Error(res.error));
+      }catch(err){reject(err);}
+    };
+    reader.readAsDataURL(file);
   });
-  if(!r.ok)throw new Error("create failed "+r.status);
-  const json=await r.json();
-  return json.metadata.id;
 }
 
 function showStatus(msg,color,persist){
@@ -206,76 +246,82 @@ function showStatus(msg,color,persist){
   if(!persist)el._t=setTimeout(()=>el.textContent="",2500);
 }
 
-function save(){
-  clearTimeout(saveTimer);
-  saveTimer=setTimeout(async()=>{
-    if(!BLOB_ID){showStatus("⚠ Not connected — set up sync first","#9B3A3A",true);return;}
-    showStatus("Syncing…","var(--gold)",true);
-    try{
-      await putBlob({D,activeId});
-      showStatus("✓ Synced","#3A7C59");
-    }catch(e){
-      showStatus("⚠ Sync failed — check connection","#9B3A3A");
-    }
-  },600);
+// ── Setup screen ──────────────────────────────────────────────────────────────
+function showSetup(){
+  document.getElementById("app").innerHTML=`
+    <div class="setup">
+      <h2>🔗 Connect to Google Sheets</h2>
+      <p>Paste your Apps Script deployment URL below. You only need to do this once per device.</p>
+      <p style="font-size:12px">Get the URL from: Apps Script → Deploy → Manage deployments → copy the Web app URL</p>
+      <br>
+      <input id="urlInput" type="url" placeholder="https://script.google.com/macros/s/…/exec">
+      <button class="btn-gold" onclick="connectAPI()">Connect</button>
+    </div>`;
 }
 
-async function initApp(){
-  showLoading();
-  if(BLOB_ID){
-    try{
-      const remote=await fetchBlob();
-      D=remote.D||{};activeId=remote.activeId||1;
-      ensureD();render();return;
-    }catch(e){BLOB_ID="";localStorage.removeItem(BLOB_KEY);}
-  }
-  showStatus("Setting up shared storage…","var(--gold)",true);
+async function connectAPI(){
+  const url=document.getElementById("urlInput").value.trim();
+  if(!url){showStatus("Please paste the URL","var(--red)");return;}
+  showStatus("Testing connection…","var(--gold)",true);
   try{
-    const id=await createBlob();
-    BLOB_ID=id;localStorage.setItem(BLOB_KEY,id);
-    D={};activeId=1;ensureD();
-    showStatus("✓ Ready — shared sync active","#3A7C59");
+    API_URL=url;
+    const res=await apiGet({action:"read"});
+    if(res.ok){
+      localStorage.setItem("sg_api_url",url);
+      showStatus("✓ Connected!","var(--green)");
+      await loadAll();
+      render();
+    }else{throw new Error("bad response");}
+  }catch(e){
+    API_URL="";
+    showStatus("⚠ Could not connect. Check the URL and try again.","var(--red)",true);
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+async function initApp(){
+  document.getElementById("app").innerHTML=`<div class="loading-screen"><div class="loading-icon">🏙️</div><div class="loading-txt">Loading…</div></div>`;
+  if(!API_URL){showSetup();return;}
+  try{
+    await loadAll();
     render();
   }catch(e){
-    showStatus("⚠ Offline mode — notes saved locally only","#9B3A3A",true);
-    D={};activeId=1;ensureD();render();
+    // Try local fallback
+    try{
+      const local=localStorage.getItem("sg26_local");
+      if(local){const p=JSON.parse(local);D=p.D||{};activeId=p.activeId||1;}
+    }catch(e2){}
+    ensureD();
+    showStatus("⚠ Offline — showing local data","#E8A020",true);
+    render();
   }
 }
-
-function showLoading(){
-  document.getElementById("app").innerHTML=`<div class="loading"><div class="loading-icon">🏙️</div><div class="loading-txt">Loading…</div></div>`;}
-
 
 // ── Render ────────────────────────────────────────────────────────────────────
 function render(){renderTabs();renderContent();}
 
 function renderTabs(){
-  const el=document.getElementById("app");
-  // preserve content div if already there
-  let tabs=document.getElementById("tabs");
-  let content=document.getElementById("content");
-  if(!tabs){
-    el.innerHTML=`<div class="tabs" id="tabs"></div><div class="content" id="content"></div>`;
-    tabs=document.getElementById("tabs");
-    content=document.getElementById("content");
+  let app=document.getElementById("app");
+  if(!document.getElementById("tabs")){
+    app.innerHTML=`<div class="tabs" id="tabs"></div><div class="content" id="content"></div>`;
   }
-  tabs.innerHTML="";
+  const tabs=document.getElementById("tabs");tabs.innerHTML="";
   BASES.forEach(b=>{
-    const btn=document.createElement("button");
-    btn.className="tab"+(b.id===activeId?" active":"");
-    btn.textContent=b.name;
-    btn.onclick=()=>{activeId=b.id;save();render();};
+    const btn=document.createElement("button");btn.className="tab"+(b.id===activeId?" active":"");
+    btn.textContent=b.name;btn.onclick=()=>{activeId=b.id;save();renderContent();scrollToTop();
+      document.querySelector(".tab.active")?.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+    };
     tabs.appendChild(btn);
   });
 }
 
+function scrollToTop(){window.scrollTo({top:0,behavior:"smooth"});}
+
 function renderContent(){
-  const el=document.getElementById("content");
-  if(!el)return;
+  const el=document.getElementById("content");if(!el)return;
   el.innerHTML="";
   const base=BASES.find(b=>b.id===activeId);
-  const dd=D[activeId];
-  if(!dd)return;
+  const dd=D[activeId];if(!dd)return;
   const psf=base.sqft&&base.rent?(base.rent/base.sqft).toFixed(2):null;
 
   // Info card
@@ -294,17 +340,17 @@ function renderContent(){
     <div class="pg-row">
       <span>PropertyGuru</span>
       <input type="url" id="pgIn" placeholder="Paste URL…" value="${dd.pgLink||""}">
-      ${dd.pgLink?`<a href="${dd.pgLink}" target="_blank">🔗</a>`:""}
+      ${dd.pgLink?`<a href="${dd.pgLink}" target="_blank" style="font-size:20px;text-decoration:none">🔗</a>`:""}
     </div>`;
   el.appendChild(info);
   document.getElementById("pgIn").oninput=function(){dd.pgLink=this.value;save();};
 
+  // Categories
   CATS.forEach((cat,ci)=>{
     const sec=document.createElement("div");sec.className="cat";
     const sc=catScore(dd,ci);
     const isOpen=openCats[ci]!==false;
-    const hdr=document.createElement("div");
-    hdr.className="cat-hdr"+(isOpen?"":" closed");
+    const hdr=document.createElement("div");hdr.className="cat-hdr"+(isOpen?"":" closed");
     hdr.innerHTML=`<span style="font-size:18px">${cat.icon}</span>
       <span style="font-family:Georgia,serif;font-size:15px;font-weight:600;flex:1">${cat.title}</span>
       <span style="font-size:12px;color:var(--muted);background:var(--cream);padding:2px 8px;border-radius:10px;border:1px solid var(--border)">${sc?sc+"/5":"—"}</span>
@@ -317,15 +363,12 @@ function renderContent(){
       const lbl=document.createElement("div");lbl.className="crit-lbl";
       lbl.innerHTML=cr.l+(cr.p==="must"?' <span class="badge must">Must</span>':cr.p==="imp"?' <span class="badge imp">Important</span>':"");
       row.appendChild(lbl);
-      const fv=dd.fields[cr.id||key]||"";
-      const nv=dd.notes[key]||"";
-      const rv=dd.ratings[key]||0;
-      const sqft=parseFloat(dd.fields.sqft||0);
-      const rent=parseFloat(dd.fields.rent||0);
+      const fv=dd.fields[cr.id||key]||"",nv=dd.notes[key]||"",rv=dd.ratings[key]||0;
+      const sqft=parseFloat(dd.fields.sqft||0),rent=parseFloat(dd.fields.rent||0);
       if(cr.t==="calc"){
-        const div=document.createElement("div");div.className="calc";
-        div.textContent=sqft>0&&rent>0?"SGD "+(rent/sqft).toFixed(2)+" / sqft":"Enter size & rent above";
-        row.appendChild(div);
+        const d=document.createElement("div");d.className="calc";
+        d.textContent=sqft>0&&rent>0?"SGD "+(rent/sqft).toFixed(2)+" / sqft":"Enter size & rent above";
+        row.appendChild(d);
       }else if(cr.t==="num"){
         const nr=document.createElement("div");nr.className="num-row";
         const inp=document.createElement("input");inp.type="number";inp.min=0;inp.placeholder="0";
@@ -347,6 +390,37 @@ function renderContent(){
     sec.appendChild(hdr);sec.appendChild(body);el.appendChild(sec);
   });
 
+  // 📸 Photos & Videos section
+  const mediaDiv=document.createElement("div");mediaDiv.className="media-section";
+  mediaDiv.innerHTML=`
+    <div class="media-title">
+      <span>📸 Photos & Videos</span>
+      <button class="upload-btn" onclick="document.getElementById('fileInput').click()">＋ Add</button>
+    </div>
+    <input type="file" id="fileInput" accept="image/*,video/*" multiple>
+    <div id="mediaGrid" class="media-grid"><div class="media-empty">Loading…</div></div>`;
+  el.appendChild(mediaDiv);
+
+  // Wire up file input
+  document.getElementById("fileInput").onchange=async function(){
+    const files=Array.from(this.files);
+    if(!files.length)return;
+    const grid=document.getElementById("mediaGrid");
+    grid.innerHTML=`<div class="uploading" style="grid-column:1/-1">Uploading ${files.length} file${files.length>1?"s":""}…</div>`;
+    for(const file of files){
+      try{
+        showStatus("Uploading "+file.name+"…","var(--gold)",true);
+        await uploadFile(base.full,file);
+        showStatus("✓ Uploaded","var(--green)");
+      }catch(e){showStatus("⚠ Upload failed: "+file.name,"var(--red)",true);}
+    }
+    renderMediaGrid(base.full);
+    this.value="";
+  };
+
+  renderMediaGrid(base.full);
+
+  // Overall + Score
   const sc=calcOverall(dd),pct=sc?parseFloat(sc)/5*100:0;
   const rated=Object.values(dd.ratings).filter(r=>r>0).length;
   const box=document.createElement("div");box.className="dark-box";
@@ -362,13 +436,41 @@ function renderContent(){
   document.getElementById("overallNote").oninput=function(){dd.overall=this.value;save();};
 }
 
+async function renderMediaGrid(aptName){
+  const grid=document.getElementById("mediaGrid");
+  if(!grid)return;
+  const files=await loadMedia(aptName);
+  if(!files.length){grid.innerHTML=`<div class="media-empty" style="grid-column:1/-1">No photos yet — tap + Add to upload</div>`;return;}
+  grid.innerHTML="";
+  files.forEach(f=>{
+    const div=document.createElement("div");div.className="media-thumb";
+    if(f.mimeType&&f.mimeType.startsWith("image/")){
+      div.innerHTML=`<img src="${f.thumb||f.url}" loading="lazy" onclick="window.open('${f.url}','_blank')">`;
+    }else{
+      div.innerHTML=`<div style="width:100%;height:100%;background:#222;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="window.open('${f.url}','_blank')">
+        <span style="font-size:32px">🎬</span></div>
+        <span class="video-badge">VIDEO</span>`;
+    }
+    div.innerHTML+=`<button class="del-btn" onclick="deleteMedia('${f.id}','${aptName}')">×</button>`;
+    grid.appendChild(div);
+  });
+}
+
+async function deleteMedia(fileId,aptName){
+  if(!confirm("Delete this photo/video?"))return;
+  try{
+    await apiPost({action:"delete",fileId});
+    showStatus("Deleted","var(--green)");
+    renderMediaGrid(aptName);
+  }catch(e){showStatus("⚠ Delete failed","var(--red)",true);}
+}
+
 function mkStars(val,onChange){
   const div=document.createElement("div");div.className="stars";
   for(let s=1;s<=5;s++){
     const sp=document.createElement("span");sp.className="star"+(val>=s?" on":"");sp.textContent="★";
     const sv=s;sp.onclick=()=>onChange(val===sv?0:sv);div.appendChild(sp);
-  }
-  return div;
+  }return div;
 }
 function mkTxt(val,onChange,ph="Notes..."){
   const ta=document.createElement("textarea");ta.value=val||"";ta.placeholder=ph;
@@ -379,8 +481,7 @@ function mkTogs(opts,val,onChange){
   opts.forEach(o=>{
     const b=document.createElement("button");b.className="tog"+(val===o?" on":"");b.textContent=o;
     b.onclick=()=>onChange(val===o?null:o);div.appendChild(b);
-  });
-  return div;
+  });return div;
 }
 function catScore(dd,ci){
   let t=0,n=0;
@@ -388,8 +489,7 @@ function catScore(dd,ci){
   return n?(t/n).toFixed(1):null;
 }
 function calcOverall(dd){
-  let t=0,n=0;
-  CATS.forEach((_,ci)=>{const s=catScore(dd,ci);if(s){t+=parseFloat(s);n++;}});
+  let t=0,n=0;CATS.forEach((_,ci)=>{const s=catScore(dd,ci);if(s){t+=parseFloat(s);n++;}});
   return n?(t/n).toFixed(1):null;
 }
 
