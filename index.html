@@ -96,7 +96,7 @@ textarea{width:100%;font-size:13px;color:var(--dark);background:var(--cream);bor
 <div id="status"></div>
 <div id="app"></div>
 <script>
-const HARDCODED_URL="https://script.google.com/macros/s/AKfycbw_meofIdqWoD2V4SfX6jvo8vRPk2cCn_cFbwUj8wXJKhF25ajmQDjManSHXqtsPluk/exec";
+const HARDCODED_URL="https://script.google.com/macros/s/AKfycbx_ykeulVEGGYHEMzVXf688Qq0CauYGZmC4l2V5DcoEBgdtmvBCc5hPPT0ZkE_v4aoh/exec";
 let API_URL=HARDCODED_URL;
 try{localStorage.setItem("sg_api_url",HARDCODED_URL);}catch(e){}
 
@@ -187,14 +187,23 @@ function ensureD(){
   CATS.forEach((_,ci)=>{if(openCats[ci]===undefined)openCats[ci]=ci<2;});
 }
 
-async function apiGet(params){
-  const r=await fetch(API_URL+"?"+new URLSearchParams(params),{redirect:"follow"});
-  if(!r.ok)throw new Error(r.status);
-  try{return await r.json();}catch(e){return{ok:true};}
+async function apiCall(params){
+  // Use POST for everything to avoid Safari CORS redirect issues
+  const r=await fetch(API_URL,{
+    method:"POST",
+    body:JSON.stringify(params),
+    redirect:"follow"
+  });
+  try{
+    const text=await r.text();
+    return JSON.parse(text);
+  }catch(e){return{ok:true};}
 }
+// Keep apiGet as alias for backward compat (media, folder URL calls)
+async function apiGet(params){return apiCall(params);}
 
 async function loadAll(){
-  const res=await apiGet({action:"read"});
+  const res=await apiCall({action:"read"});
   if(res.ok&&res.data&&res.data.viewingData){
     try{
       const p=JSON.parse(res.data.viewingData);
@@ -210,9 +219,7 @@ function save(){
   saveTimer=setTimeout(async()=>{
     showStatus("Saving…","var(--gold)",true);
     try{
-      const body=JSON.stringify({action:"write",key:"viewingData",value:JSON.stringify({D,activeId})});
-      const r=await fetch(API_URL,{method:"POST",body,redirect:"follow"});
-      try{await r.text();}catch(e){}
+      const res=await apiCall({action:"write",key:"viewingData",value:JSON.stringify({D,activeId})});
       showStatus("✓ Saved","var(--green)");
     }catch(e){
       showStatus("⚠ "+e.message,"var(--red)",true);
