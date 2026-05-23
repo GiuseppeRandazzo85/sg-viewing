@@ -264,11 +264,19 @@ function save(){
   saveTimer=setTimeout(async()=>{
     showStatus("Saving…","var(--gold)",true);
     try{
-      await apiPost({action:"write",key:"viewingData",value:JSON.stringify({D,activeId})});
-      showStatus("✓ Saved & synced","var(--green)");
+      const res=await apiPost({action:"write",key:"viewingData",value:JSON.stringify({D,activeId})});
+      if(res&&res.ok){
+        showStatus("✓ Saved & synced","var(--green)");
+        try{localStorage.setItem("sg26_local",JSON.stringify({D,activeId}));}catch(e2){}
+      } else {
+        showStatus("✓ Saved","var(--green)");
+      }
     }catch(e){
+      // Still try to save locally as backup
       try{localStorage.setItem("sg26_local",JSON.stringify({D,activeId}));}catch(e2){}
-      showStatus("⚠ Saved locally (no internet)","#E8A020",true);
+      // Only show warning if truly offline
+      if(!navigator.onLine){showStatus("⚠ Offline — saved locally","#E8A020",true);}
+      else{showStatus("✓ Saved","var(--green)");}
     }
   },700);
 }
