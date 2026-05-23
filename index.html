@@ -210,8 +210,8 @@ function save(){
   saveTimer=setTimeout(async()=>{
     showStatus("Saving…","var(--gold)",true);
     try{
-      const params={action:"write",key:"viewingData",value:encodeURIComponent(JSON.stringify({D,activeId}))};
-      const r=await fetch(API_URL+"?"+new URLSearchParams(params),{redirect:"follow"});
+      const body=JSON.stringify({action:"write",key:"viewingData",value:JSON.stringify({D,activeId})});
+      const r=await fetch(API_URL,{method:"POST",body,redirect:"follow"});
       try{await r.text();}catch(e){}
       showStatus("✓ Saved","var(--green)");
     }catch(e){
