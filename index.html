@@ -164,29 +164,39 @@ function ensureD(){
   CATS.forEach((_,ci)=>{if(openCats[ci]===undefined)openCats[ci]=true;});
 }
 
+const JSONBIN_BASE = "https://api.jsonbin.io/v3";
+const JSONBIN_ACCESS = "$2a$10$FVTP8Jwn3d0RPCQcZfSgh.NCi/c1QnI7GhuSYRfKOatn0J7z6ynHO";
+
 async function fetchBlob(){
-  const r=await fetch("https://jsonblob.com/api/jsonBlob/"+BLOB_ID,{headers:{"Accept":"application/json"}});
+  const r=await fetch(JSONBIN_BASE+"/b/"+BLOB_ID+"/latest",{
+    headers:{"X-Access-Key":JSONBIN_ACCESS}
+  });
   if(!r.ok)throw new Error("fetch failed");
-  return r.json();
+  const json=await r.json();
+  return json.record;
 }
 async function putBlob(data){
-  const r=await fetch("https://jsonblob.com/api/jsonBlob/"+BLOB_ID,{
-    method:"PUT",headers:{"Content-Type":"application/json","Accept":"application/json"},
+  const r=await fetch(JSONBIN_BASE+"/b/"+BLOB_ID,{
+    method:"PUT",
+    headers:{"Content-Type":"application/json","X-Access-Key":JSONBIN_ACCESS},
     body:JSON.stringify(data)
   });
   if(!r.ok)throw new Error("put failed");
 }
 async function createBlob(){
-  const r=await fetch("https://jsonblob.com/api/jsonBlob",{
-    method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+  const r=await fetch(JSONBIN_BASE+"/b",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "X-Access-Key":JSONBIN_ACCESS,
+      "X-Bin-Name":"giuseppe-sg-2026",
+      "X-Bin-Private":"false"
+    },
     body:JSON.stringify({D:{},activeId:1})
   });
-  if(!r.ok)throw new Error("create failed");
-  // ID is in the Location header
-  const loc=r.headers.get("Location")||"";
-  const id=loc.split("/").pop();
-  if(!id)throw new Error("no id");
-  return id;
+  if(!r.ok)throw new Error("create failed "+r.status);
+  const json=await r.json();
+  return json.metadata.id;
 }
 
 function showStatus(msg,color,persist){
@@ -212,83 +222,29 @@ function save(){
 
 async function initApp(){
   showLoading();
-  // If we have a blob ID, load from it
   if(BLOB_ID){
     try{
       const remote=await fetchBlob();
-      D=remote.D||{};
-      activeId=remote.activeId||1;
-      ensureD();
-      render();
-      return;
-    }catch(e){
-      // blob ID invalid, clear it and show setup
-      BLOB_ID="";localStorage.removeItem(BLOB_KEY);
-    }
+      D=remote.D||{};activeId=remote.activeId||1;
+      ensureD();render();return;
+    }catch(e){BLOB_ID="";localStorage.removeItem(BLOB_KEY);}
   }
-  // No blob ID — show setup screen
-  showSetup();
+  showStatus("Setting up shared storage…","var(--gold)",true);
+  try{
+    const id=await createBlob();
+    BLOB_ID=id;localStorage.setItem(BLOB_KEY,id);
+    D={};activeId=1;ensureD();
+    showStatus("✓ Ready — shared sync active","#3A7C59");
+    render();
+  }catch(e){
+    showStatus("⚠ Offline mode — notes saved locally only","#9B3A3A",true);
+    D={};activeId=1;ensureD();render();
+  }
 }
 
 function showLoading(){
-  document.getElementById("app").innerHTML=`
-    <div class="loading">
-      <div class="loading-icon">🏙️</div>
-      <div class="loading-txt">Loading…</div>
-    </div>`;
-}
+  document.getElementById("app").innerHTML=`<div class="loading"><div class="loading-icon">🏙️</div><div class="loading-txt">Loading…</div></div>`;}
 
-function showSetup(){
-  document.getElementById("app").innerHTML=`
-    <div class="setup-box">
-      <h2>🔗 Set Up Shared Sync</h2>
-      <p>This creates a shared database so Giuseppe & Lina both see the same notes from any device.</p>
-      <p style="font-size:12px;margin-bottom:8px"><strong>First time?</strong> Tap "Create new" below.</p>
-      <button class="btn btn-gold" style="width:100%;margin-bottom:12px" onclick="setupNew()">Create new shared session</button>
-      <p style="font-size:12px;margin-bottom:8px"><strong>Already have an ID?</strong> Paste it here:</p>
-      <input id="blobInput" placeholder="Paste Blob ID here…" type="text">
-      <button class="btn btn-dark" onclick="setupExisting()">Connect to existing session</button>
-    </div>`;
-}
-
-async function setupNew(){
-  showStatus("Creating shared session…","var(--gold)",true);
-  try{
-    const id=await createBlob();
-    BLOB_ID=id;
-    localStorage.setItem(BLOB_KEY,id);
-    D={};activeId=1;ensureD();
-    // Show the ID to the user so they can share it
-    document.getElementById("app").innerHTML=`
-      <div class="setup-box">
-        <h2>✅ Session Created!</h2>
-        <p style="margin-bottom:12px">Your shared session ID is:</p>
-        <div style="background:#F5F0E8;border:2px solid var(--gold);border-radius:8px;padding:12px;font-family:monospace;font-size:16px;font-weight:700;color:var(--dark);word-break:break-all;margin-bottom:12px">${id}</div>
-        <p style="font-size:12px;margin-bottom:16px">Share this ID with Lina. She pastes it on her device to connect to the same session.</p>
-        <button class="btn btn-dark" onclick="render()">Start Viewing ➜</button>
-      </div>`;
-  }catch(e){
-    showStatus("⚠ Could not create session. Check your internet connection.","#9B3A3A",true);
-    showSetup();
-  }
-}
-
-async function setupExisting(){
-  const id=document.getElementById("blobInput").value.trim();
-  if(!id){showStatus("Please enter a Blob ID","#9B3A3A");return;}
-  showStatus("Connecting…","var(--gold)",true);
-  try{
-    BLOB_ID=id;
-    const remote=await fetchBlob();
-    D=remote.D||{};activeId=remote.activeId||1;
-    localStorage.setItem(BLOB_KEY,id);
-    ensureD();
-    render();
-  }catch(e){
-    BLOB_ID="";
-    showStatus("⚠ Could not connect. Check the ID and try again.","#9B3A3A",true);
-  }
-}
 
 // ── Render ────────────────────────────────────────────────────────────────────
 function render(){renderTabs();renderContent();}
