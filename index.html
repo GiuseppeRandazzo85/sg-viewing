@@ -571,7 +571,7 @@ function renderAptPage(el){
     <div class="media-title">
       <span>📸 Photos & Videos</span>
       <div style="display:flex;gap:8px;align-items:center">
-        <a id="driveFolderLink" style="font-size:12px;color:var(--gold);text-decoration:none;font-weight:600;display:none" target="_blank">📁 Open in Drive</a>
+        <a id="driveFolderLink" href="#" target="_blank" style="font-size:12px;color:var(--gold);text-decoration:none;font-weight:600;border:1px solid var(--gold);padding:6px 12px;border-radius:16px">📁 Drive</a>
         <button class="upload-btn" onclick="document.getElementById('fileInput').click()">＋ Add</button>
       </div>
     </div>
@@ -580,16 +580,12 @@ function renderAptPage(el){
     <div id="mediaGrid" class="media-grid"><div class="media-empty">Loading…</div></div>`;
   el.appendChild(mediaDiv);
 
-  // Show Drive folder link immediately — opens Drive search for this apartment
+  // Set Drive folder link
   const driveLink=document.getElementById("driveFolderLink");
   if(driveLink){
-    // Try to get exact folder URL, fall back to Drive search
     driveLink.href="https://drive.google.com/drive/search?q="+encodeURIComponent(base.full);
-    driveLink.style.display="inline";
-    // Also try to get the exact folder URL in background
-    getDriveFolderUrl(base.full).then(url=>{
-      if(url&&driveLink)driveLink.href=url;
-    }).catch(()=>{});
+    // Try to upgrade to exact folder URL in background
+    getDriveFolderUrl(base.full).then(url=>{ if(url&&driveLink)driveLink.href=url; }).catch(()=>{});
   }
 
   document.getElementById("fileInput").onchange=async function(){
