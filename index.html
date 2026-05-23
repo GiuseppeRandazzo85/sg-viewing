@@ -303,35 +303,31 @@ async function loadMedia(aptName){
   return[];
 }
 
-const CHUNK_SIZE = 100000; // ~100KB per chunk, safe for URL length
-
 async function uploadFile(aptName, file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = async function(e) {
       const base64 = e.target.result.split(",")[1];
-      const uploadId = Date.now() + "_" + file.name;
-      const totalChunks = Math.ceil(base64.length / CHUNK_SIZE);
+      showStatus("Uploading…", "var(--gold)", true);
       try {
-        let lastRes = null;
-        for (let i = 0; i < totalChunks; i++) {
-          const chunk = base64.slice(i * CHUNK_SIZE, (i + 1) * CHUNK_SIZE);
-          const res = await apiGet({
-            action: "upload",
-            apt: aptName,
-            fileName: file.name,
-            mimeType: file.type,
-            data: encodeURIComponent(chunk),
-            uploadId,
-            chunkIdx: i,
-            totalChunks
-          });
-          lastRes = res;
-          showStatus(`Uploading… ${Math.round((i+1)/totalChunks*100)}%`, "var(--gold)", true);
-        }
-        if (lastRes && lastRes.ok && lastRes.file) resolve(lastRes.file);
-        else if (lastRes && lastRes.ok) resolve({});
-        else reject(new Error(lastRes?.error || "Upload failed"));
+        // Send via POST as text/plain to avoid CORS preflight
+        const body = JSON.stringify({
+          action: "upload",
+          apt: aptName,
+          fileName: file.name,
+          mimeType: file.type,
+          data: base64
+        });
+        const r = await fetch(API_URL, {
+          method: "POST",
+          body: body,
+          redirect: "follow"
+        });
+        const text = await r.text();
+        let res;
+        try { res = JSON.parse(text); } catch(e) { res = { ok: true }; }
+        if (res.ok) resolve(res.file || {});
+        else reject(new Error(res.error || "Upload failed"));
       } catch(err) { reject(err); }
     };
     reader.readAsDataURL(file);
