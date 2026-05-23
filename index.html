@@ -19,13 +19,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F0E8;
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex-shrink:0;padding:7px 12px;border-radius:20px;border:1px solid var(--border);cursor:pointer;white-space:nowrap;font-size:11px;font-weight:600;background:var(--card);color:var(--muted);-webkit-appearance:none}
 .tab.active{background:var(--dark);color:var(--cream);border-color:var(--dark)}
-.tab.summary-tab{border-color:var(--gold);color:var(--gold)}
-.tab.summary-tab.active{background:var(--gold);color:white;border-color:var(--gold)}
 .content{padding:0 16px}
-/* Info card */
 .info{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin:12px 0}
 .info-time{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px}
-/* Cover photo in info card */
 .cover-photo{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:10px;cursor:pointer}
 .cover-placeholder{width:100%;height:80px;background:var(--cream);border:2px dashed var(--border);border-radius:8px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);cursor:pointer}
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-bottom:10px}
@@ -36,12 +32,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F0E8;
 .pg-row{display:flex;align-items:center;gap:8px;padding-top:10px;border-top:1px solid var(--border)}
 .pg-row span{font-size:10px;color:var(--muted);white-space:nowrap;text-transform:uppercase}
 .pg-row input{flex:1;font-size:12px;color:var(--dark);background:var(--cream);border:1px solid var(--border);border-radius:6px;padding:6px 8px;outline:none}
-/* One-line summary */
 .apt-summary-row{padding-top:10px;border-top:1px solid var(--border);margin-top:4px}
 .apt-summary-row .il{margin-bottom:4px}
 .apt-summary-input{width:100%;font-size:13px;font-weight:500;color:var(--dark);background:transparent;border:none;border-bottom:1px solid var(--border);padding:4px 0;outline:none;font-family:-apple-system,sans-serif}
 .apt-summary-input:focus{border-bottom-color:var(--gold)}
-/* Category */
 .cat{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden}
 .cat-hdr{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;border-bottom:1px solid var(--border)}
 .cat-hdr.closed{border-bottom:none}
@@ -71,13 +65,11 @@ textarea{width:100%;font-size:13px;color:var(--dark);background:var(--cream);bor
 .score-val{font-size:30px;font-family:Georgia,serif;color:var(--gold)}
 .bar{height:6px;background:#333;border-radius:3px;overflow:hidden;margin-bottom:16px}
 .bar-fill{height:100%;background:var(--gold);border-radius:3px}
-/* Status toggles */
 .status-togs{display:flex;gap:8px;flex-wrap:wrap}
-.stog{padding:9px 18px;border-radius:20px;border:2px solid var(--border);cursor:pointer;font-size:13px;font-weight:700;background:var(--cream);color:var(--muted);-webkit-appearance:none;transition:all .15s}
+.stog{padding:9px 18px;border-radius:20px;border:2px solid var(--border);cursor:pointer;font-size:13px;font-weight:700;background:var(--cream);color:var(--muted);-webkit-appearance:none}
 .stog.shortlist.on{background:#3A7C59;color:white;border-color:#3A7C59}
 .stog.ok.on{background:var(--gold);color:white;border-color:var(--gold)}
 .stog.discard.on{background:var(--red);color:white;border-color:var(--red)}
-/* Media */
 .media-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px}
 .media-title{font-family:Georgia,serif;font-size:15px;font-weight:600;color:var(--dark);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
 .upload-btn{padding:8px 16px;border-radius:20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-size:13px;font-weight:600;cursor:pointer;-webkit-appearance:none}
@@ -87,37 +79,12 @@ textarea{width:100%;font-size:13px;color:var(--dark);background:var(--cream);bor
 .media-thumb img{width:100%;height:100%;object-fit:cover}
 .media-thumb .del-btn{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);color:white;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;line-height:24px;text-align:center}
 .media-thumb .cover-btn{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,.6);color:white;border:none;border-radius:8px;font-size:10px;padding:2px 6px;cursor:pointer;font-weight:600}
-.media-thumb .cover-btn.active{background:var(--gold);color:white}
+.media-thumb .cover-btn.active{background:var(--gold)}
 .media-thumb .video-badge{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,.6);color:white;font-size:10px;padding:2px 6px;border-radius:8px}
 .media-empty{font-size:13px;color:var(--muted);text-align:center;padding:16px 0}
-/* Summary page */
-.sum-page{padding:12px 16px}
-.sum-page h2{font-family:Georgia,serif;font-size:18px;color:var(--dark);margin-bottom:4px}
-.sum-page .sub{font-size:12px;color:var(--muted);margin-bottom:16px}
-.apt-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start;cursor:pointer}
-.apt-card:active{background:#EDE8E0}
-.apt-card-thumb{width:60px;height:60px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--cream)}
-.apt-card-thumb-placeholder{width:60px;height:60px;border-radius:8px;background:var(--cream);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px}
-.apt-card-body{flex:1;min-width:0}
-.apt-card-name{font-family:Georgia,serif;font-size:14px;font-weight:600;color:var(--dark);margin-bottom:2px}
-.apt-card-full{font-size:11px;color:var(--muted);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.apt-card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.apt-card-score{font-family:Georgia,serif;font-size:18px;font-weight:700;color:var(--gold)}
-.apt-status-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px}
-.apt-status-badge.shortlist{background:#D4EDDA;color:#3A7C59}
-.apt-status-badge.ok{background:#FFF3CD;color:#A07820}
-.apt-status-badge.discard{background:#FFE5E5;color:var(--red)}
-.apt-card-summary{font-size:12px;color:var(--muted);margin-top:4px;font-style:italic}
-.rank-num{font-size:22px;font-weight:700;color:var(--border);font-family:Georgia,serif;min-width:28px;text-align:center;margin-top:4px}
-/* Loading */
 .loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:80vh;gap:16px}
 .loading-icon{font-size:40px}
 .loading-txt{font-family:Georgia,serif;font-size:18px;color:var(--gold)}
-.setup{margin:20px 16px;padding:20px;background:var(--card);border:2px solid var(--gold);border-radius:12px}
-.setup h2{font-family:Georgia,serif;font-size:18px;color:var(--dark);margin-bottom:10px}
-.setup p{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6}
-.setup input{width:100%;font-size:13px;color:var(--dark);background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:10px;outline:none;margin-bottom:12px;font-family:-apple-system,sans-serif}
-.btn-gold{display:block;width:100%;padding:13px;border-radius:24px;border:none;cursor:pointer;font-size:14px;font-weight:700;background:var(--gold);color:white;-webkit-appearance:none}
 </style>
 </head>
 <body>
@@ -196,28 +163,16 @@ const BASES=[
   {id:16,name:"M1 B21 #30-15", full:"Marina One Blk 21 #30-15",     time:"6:00 PM", top:2017,units:1042,sqft:1539,rent:13800,beds:3,avail:"1 July",    furn:"Fully"},
 ];
 
-// Fields that are editable in info card (double-tap)
-const INFO_FIELDS=[
-  {key:"rent",   label:"Rent/mo",     gold:true,  fmt:v=>"SGD "+Number(v).toLocaleString()},
-  {key:"sqft",   label:"Size",        gold:false, fmt:v=>Number(v).toLocaleString()+" sqft"},
-  {key:"beds",   label:"Bedrooms",    gold:false, fmt:v=>v},
-  {key:"units",  label:"Units in bldg",gold:false,fmt:v=>v},
-  {key:"avail",  label:"Move-in",     gold:false, fmt:v=>v},
-  {key:"furn",   label:"Furnished",   gold:false, fmt:v=>v},
-];
-
 let D={}, activeId=1, openCats={}, saveTimer=null;
 
 function emptyApt(b){
-  return{id:b.id,ratings:{},notes:{},fields:{sqft:String(b.sqft),rent:String(b.rent)},
-    overall:"",pgLink:"",aptSummary:"",status:"",coverPhotoId:"",
-    // overrides for info card fields
-    overrides:{}};
+  return{id:b.id,ratings:{},notes:{},fields:{sqft:String(b.sqft||0),rent:String(b.rent||0)},
+    overall:"",pgLink:"",aptSummary:"",status:"",coverPhotoId:"",coverThumb:"",overrides:{}};
 }
 
 function ensureD(){
   BASES.forEach(b=>{
-    if(!D[b.id]){D[b.id]=emptyApt(b);}
+    if(!D[b.id])D[b.id]=emptyApt(b);
     else{
       if(!D[b.id].fields)D[b.id].fields={};
       if(!D[b.id].fields.sqft)D[b.id].fields.sqft=String(b.sqft);
@@ -226,55 +181,22 @@ function ensureD(){
       if(D[b.id].aptSummary===undefined)D[b.id].aptSummary="";
       if(D[b.id].status===undefined)D[b.id].status="";
       if(D[b.id].coverPhotoId===undefined)D[b.id].coverPhotoId="";
+      if(D[b.id].coverThumb===undefined)D[b.id].coverThumb="";
     }
   });
   CATS.forEach((_,ci)=>{if(openCats[ci]===undefined)openCats[ci]=ci<2;});
 }
 
-// Get effective value for an info field (override or base)
-function getField(dd,base,key){
-  return dd.overrides&&dd.overrides[key]!==undefined ? dd.overrides[key] : base[key];
-}
-
-// ── API ───────────────────────────────────────────────────────────────────────
 async function apiGet(params){
   const r=await fetch(API_URL+"?"+new URLSearchParams(params),{redirect:"follow"});
   if(!r.ok)throw new Error(r.status);
-  return r.json();
-}
-async function apiPost(body){
-  // Use POST for uploads (large payloads), GET for everything else
-  if(body.action==="upload"||body.action==="delete"){
-    try{
-      const r=await fetch(API_URL,{
-        method:"POST",
-        headers:{"Content-Type":"text/plain"},
-        body:JSON.stringify(body),
-        redirect:"follow"
-      });
-      const text=await r.text();
-      try{return JSON.parse(text);}catch(e){return{ok:true};}
-    }catch(e){
-      // CORS fallback: try GET without the binary data
-      return{ok:false,error:e.message};
-    }
-  }
-  // All other actions via GET
-  const params={...body};
-  if(params.value)params.value=encodeURIComponent(params.value);
-  const r=await fetch(API_URL+"?"+new URLSearchParams(params),{redirect:"follow"});
-  try{
-    const text=await r.text();
-    return JSON.parse(text);
-  }catch(e){
-    return{ok:true};
-  }
+  try{return await r.json();}catch(e){return{ok:true};}
 }
 
 async function loadAll(){
   const res=await apiGet({action:"read"});
   if(res.ok&&res.data&&res.data.viewingData){
-    try{const p=JSON.parse(res.data.viewingData);D=p.D||{};activeId=p.activeId||"summary";}catch(e){}
+    try{const p=JSON.parse(res.data.viewingData);D=p.D||{};activeId=p.activeId||1;}catch(e){}
   }
   ensureD();
 }
@@ -284,13 +206,11 @@ function save(){
   saveTimer=setTimeout(async()=>{
     showStatus("Saving…","var(--gold)",true);
     try{
-      const res=await apiPost({action:"write",key:"viewingData",value:JSON.stringify({D,activeId})});
-      try{localStorage.setItem("sg26_local",JSON.stringify({D,activeId}));}catch(e2){}
-      if(res&&res.ok){
-        showStatus("✓ Saved & synced","var(--green)");
-      }else{
-        showStatus("⚠ Sync error — retrying","#E8A020",true);
-      }
+      const params={action:"write",key:"viewingData",value:encodeURIComponent(JSON.stringify({D,activeId}))};
+      const r=await fetch(API_URL+"?"+new URLSearchParams(params),{redirect:"follow"});
+      try{await r.text();}catch(e){}
+      try{localStorage.setItem("sg26_local",JSON.stringify({D,activeId}));}catch(e){}
+      showStatus("✓ Saved","var(--green)");
     }catch(e){
       try{localStorage.setItem("sg26_local",JSON.stringify({D,activeId}));}catch(e2){}
       showStatus("✓ Saved","var(--green)");
@@ -298,50 +218,34 @@ function save(){
   },700);
 }
 
-async function loadMedia(aptName){
-  try{const res=await apiGet({action:"listMedia",apt:aptName});if(res.ok)return res.files||[];}catch(e){}
-  return[];
-}
-
-async function uploadFile(aptName, file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = async function(e) {
-      const base64 = e.target.result.split(",")[1];
-      showStatus("Uploading…", "var(--gold)", true);
-      try {
-        // Send via POST as text/plain to avoid CORS preflight
-        const body = JSON.stringify({
-          action: "upload",
-          apt: aptName,
-          fileName: file.name,
-          mimeType: file.type,
-          data: base64
-        });
-        const r = await fetch(API_URL, {
-          method: "POST",
-          body: body,
-          redirect: "follow"
-        });
-        const text = await r.text();
-        let res;
-        try { res = JSON.parse(text); } catch(e) { res = { ok: true }; }
-        if (res.ok) resolve(res.file || {});
-        else reject(new Error(res.error || "Upload failed"));
-      } catch(err) { reject(err); }
+async function uploadFile(aptName,file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=async function(e){
+      const base64=e.target.result.split(",")[1];
+      showStatus("Uploading…","var(--gold)",true);
+      try{
+        const body=JSON.stringify({action:"upload",apt:aptName,fileName:file.name,mimeType:file.type,data:base64});
+        const r=await fetch(API_URL,{method:"POST",body,redirect:"follow"});
+        const text=await r.text();
+        let res;try{res=JSON.parse(text);}catch(e){res={ok:true};}
+        if(res.ok)resolve(res.file||{});
+        else reject(new Error(res.error||"Upload failed"));
+      }catch(err){reject(err);}
     };
     reader.readAsDataURL(file);
   });
 }
 
-// Get or cache the Drive folder URL for an apartment
-const folderUrlCache = {};
-async function getDriveFolderUrl(aptName) {
-  if (folderUrlCache[aptName]) return folderUrlCache[aptName];
-  try {
-    const res = await apiGet({ action: "getFolderUrl", apt: aptName });
-    if (res.ok && res.url) { folderUrlCache[aptName] = res.url; return res.url; }
-  } catch(e) {}
+async function loadMedia(aptName){
+  try{const res=await apiGet({action:"listMedia",apt:aptName});if(res.ok)return res.files||[];}catch(e){}
+  return[];
+}
+
+const folderUrlCache={};
+async function getDriveFolderUrl(aptName){
+  if(folderUrlCache[aptName])return folderUrlCache[aptName];
+  try{const res=await apiGet({action:"getFolderUrl",apt:aptName});if(res.ok&&res.url){folderUrlCache[aptName]=res.url;return res.url;}}catch(e){}
   return null;
 }
 
@@ -352,188 +256,241 @@ function showStatus(msg,color,persist){
   if(!persist)el._t=setTimeout(()=>el.textContent="",2500);
 }
 
-// ── Init ──────────────────────────────────────────────────────────────────────
 async function initApp(){
-  document.getElementById("app").innerHTML=`<div class="loading-screen"><div class="loading-icon">🏙️</div><div class="loading-txt">Loading…</div></div>`;
-  try{await loadAll();render();}
+  document.getElementById("app").innerHTML='<div class="loading-screen"><div class="loading-icon">🏙️</div><div class="loading-txt">Loading…</div></div>';
+  try{await loadAll();}
   catch(e){
-    try{const local=localStorage.getItem("sg26_local");if(local){const p=JSON.parse(local);D=p.D||{};activeId=p.activeId||"summary";}}catch(e2){}
-    ensureD();showStatus("⚠ Offline — showing local data","#E8A020",true);render();
+    try{const local=localStorage.getItem("sg26_local");if(local){const p=JSON.parse(local);D=p.D||{};activeId=p.activeId||1;}}catch(e2){}
+    ensureD();
+    showStatus("⚠ Offline — showing local data","#E8A020",true);
   }
+  render();
 }
 
-// ── Render ────────────────────────────────────────────────────────────────────
-function render(){renderTabs();renderContent();}
+function render(){
+  const app=document.getElementById("app");
+  app.innerHTML='<div class="tabs" id="tabs"></div><div class="content" id="content"></div>';
+  renderTabs();
+  renderContent();
+}
 
 function renderTabs(){
-  let app=document.getElementById("app");
-  if(!document.getElementById("tabs")){
-    app.innerHTML=`<div class="tabs" id="tabs"></div><div class="content" id="content"></div>`;
-  }
-  const tabs=document.getElementById("tabs");tabs.innerHTML="";
-  // Summary tab first
+  const tabs=document.getElementById("tabs");
+  tabs.innerHTML="";
+  // Summary tab
   const sumBtn=document.createElement("button");
-  sumBtn.className="tab summary-tab"+(activeId==="summary"?" active":"");
+  sumBtn.className="tab"+(activeId==="summary"?" active":"");
+  sumBtn.style.cssText=activeId==="summary"?"":"border-color:var(--gold);color:var(--gold)";
   sumBtn.textContent="📊 Summary";
-  sumBtn.onclick=()=>{activeId="summary";save();renderTabs();renderContent();scrollToTop();};
+  sumBtn.onclick=()=>{activeId="summary";save();render();scrollToTop();};
   tabs.appendChild(sumBtn);
   // Apartment tabs
   BASES.forEach(b=>{
-    const dd=D[b.id];
-    const sc=dd?calcOverall(dd):null;
     const btn=document.createElement("button");
     btn.className="tab"+(b.id===activeId?" active":"");
     btn.textContent=b.name;
-    btn.onclick=()=>{activeId=b.id;save();renderTabs();renderContent();scrollToTop();
-      setTimeout(()=>document.querySelector(".tab.active")?.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"}),50);
+    btn.onclick=()=>{activeId=b.id;save();render();scrollToTop();
+      setTimeout(()=>btn.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"}),50);
     };
     tabs.appendChild(btn);
   });
+  // + button
+  const addBtn=document.createElement("button");
+  addBtn.className="tab";
+  addBtn.style.cssText="border-color:var(--green);color:var(--green);font-size:18px;padding:5px 14px";
+  addBtn.textContent="＋";
+  addBtn.onclick=addApartment;
+  tabs.appendChild(addBtn);
+}
+
+function addApartment(){
+  const name=prompt("Enter apartment name:");
+  if(!name||!name.trim())return;
+  const id="c"+Date.now();
+  D[id]={id,name:name.trim(),full:name.trim(),custom:true,
+    ratings:{},notes:{},fields:{sqft:"0",rent:"0"},
+    overall:"",pgLink:"",aptSummary:"",status:"",
+    coverPhotoId:"",coverThumb:"",overrides:{}};
+  // Add to BASES so it shows in tabs
+  BASES.push({id,name:name.trim(),full:name.trim(),time:"",top:"",units:"",sqft:0,rent:0,beds:"",avail:"",furn:""});
+  activeId=id;
+  save();render();scrollToTop();
 }
 
 function scrollToTop(){window.scrollTo({top:0,behavior:"smooth"});}
 
-// ── Summary page ──────────────────────────────────────────────────────────────
 function renderContent(){
-  const el=document.getElementById("content");if(!el)return;
+  const el=document.getElementById("content");
+  if(!el)return;
   el.innerHTML="";
-  if(activeId==="summary"||activeId===0||activeId==="0"){
-    activeId="summary";
-    renderSummaryPage(el);return;
-  }
+  if(activeId==="summary"){renderSummaryPage(el);return;}
   renderAptPage(el);
 }
 
 function renderSummaryPage(el){
-  try{
-  ensureD();
+  // Sort all bases by score
   const sorted=[...BASES].sort((a,b)=>{
-    const sa=calcOverall(D[a.id]),sb=calcOverall(D[b.id]);
-    if(!sa&&!sb)return0;if(!sa)return1;if(!sb)return-1;
+    const da=D[a.id],db=D[b.id];
+    const sa=da?calcOverall(da):null,sb=db?calcOverall(db):null;
+    if(!sa&&!sb)return 0;
+    if(!sa)return 1;
+    if(!sb)return -1;
     return parseFloat(sb)-parseFloat(sa);
   });
-  const div=document.createElement("div");div.className="sum-page";
-  div.innerHTML=`<h2>🏆 Rankings</h2><p class="sub">Tap any apartment to open its assessment</p>`;
+
+  // Header
+  const hdr=document.createElement("div");
+  hdr.style.cssText="padding:16px 0 8px 0";
+  hdr.innerHTML='<div style="font-family:Georgia,serif;font-size:18px;font-weight:600;color:var(--dark);margin-bottom:4px">🏆 Rankings</div><div style="font-size:12px;color:var(--muted);margin-bottom:12px">Tap any card to open that apartment</div>';
+  el.appendChild(hdr);
+
   sorted.forEach((base,i)=>{
-    const dd=D[base.id]||emptyApt(base);
-    const sc=calcOverall(dd);
-    const status=dd.status||"";
-    const statusHtml=status==="shortlist"?`<span class="apt-status-badge shortlist">⭐ Short listed</span>`:
-      status==="ok"?`<span class="apt-status-badge ok">👍 OK</span>`:
-      status==="discard"?`<span class="apt-status-badge discard">✗ Discarded</span>`:"";
-    const card=document.createElement("div");card.className="apt-card";
-    card.onclick=()=>{activeId=base.id;renderTabs();renderContent();scrollToTop();};
-    // Cover photo or placeholder
-    const coverUrl=dd.coverThumb||(dd.coverPhotoId?`https://drive.google.com/thumbnail?id=${dd.coverPhotoId}&sz=w120`:"");
-    const thumbHtml=coverUrl
-      ?`<img class="apt-card-thumb" src="${coverUrl}" onerror="this.style.display='none'">`
-      :`<div class="apt-card-thumb-placeholder">🏙️</div>`;
-    card.innerHTML=`
-      <div class="rank-num">${i+1}</div>
-      ${thumbHtml}
-      <div class="apt-card-body">
-        <div class="apt-card-name">${base.name}</div>
-        <div class="apt-card-full">${base.full}</div>
-        <div class="apt-card-meta">
-          <span class="apt-card-score">${sc?sc+"/5":"—"}</span>
-          ${statusHtml}
-        </div>
-        ${dd.aptSummary?`<div class="apt-card-summary">"${dd.aptSummary}"</div>`:""}
-      </div>`;
-    div.appendChild(card);
+    const dd=D[base.id];
+    const sc=dd?calcOverall(dd):null;
+    const status=dd?dd.status||"":"";
+    const aptSum=dd?dd.aptSummary||"":"";
+    const coverThumb=dd?dd.coverThumb||"":"";
+
+    const card=document.createElement("div");
+    card.style.cssText="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;display:flex;gap:10px;align-items:flex-start;cursor:pointer;active:background:#EDE8E0";
+    card.onclick=()=>{activeId=base.id;render();scrollToTop();};
+
+    // Rank
+    const rankEl=document.createElement("div");
+    rankEl.style.cssText="font-size:20px;font-weight:700;color:var(--border);font-family:Georgia,serif;min-width:24px;padding-top:2px;text-align:center;flex-shrink:0";
+    rankEl.textContent=String(i+1);
+    card.appendChild(rankEl);
+
+    // Thumb
+    const thumbEl=document.createElement("div");
+    thumbEl.style.cssText="width:56px;height:56px;border-radius:8px;overflow:hidden;flex-shrink:0;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:22px";
+    if(coverThumb){
+      const img=document.createElement("img");
+      img.src=coverThumb;
+      img.style.cssText="width:100%;height:100%;object-fit:cover";
+      thumbEl.appendChild(img);
+    }else{
+      thumbEl.textContent="🏙️";
+    }
+    card.appendChild(thumbEl);
+
+    // Body
+    const body=document.createElement("div");
+    body.style.cssText="flex:1;min-width:0";
+
+    const nameEl=document.createElement("div");
+    nameEl.style.cssText="font-family:Georgia,serif;font-size:14px;font-weight:600;color:var(--dark);margin-bottom:2px";
+    nameEl.textContent=base.name;
+    body.appendChild(nameEl);
+
+    const fullEl=document.createElement("div");
+    fullEl.style.cssText="font-size:11px;color:var(--muted);margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";
+    fullEl.textContent=base.full;
+    body.appendChild(fullEl);
+
+    const metaEl=document.createElement("div");
+    metaEl.style.cssText="display:flex;align-items:center;gap:8px;flex-wrap:wrap";
+
+    const scoreEl=document.createElement("span");
+    scoreEl.style.cssText="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--gold)";
+    scoreEl.textContent=sc?sc+"/5":"—";
+    metaEl.appendChild(scoreEl);
+
+    if(status==="shortlist"||status==="ok"||status==="discard"){
+      const badge=document.createElement("span");
+      const styles={
+        shortlist:"background:#D4EDDA;color:#3A7C59",
+        ok:"background:#FFF3CD;color:#A07820",
+        discard:"background:#FFE5E5;color:var(--red)"
+      };
+      const labels={shortlist:"⭐ Short listed",ok:"👍 OK",discard:"✗ Discarded"};
+      badge.style.cssText="font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;"+styles[status];
+      badge.textContent=labels[status];
+      metaEl.appendChild(badge);
+    }
+    body.appendChild(metaEl);
+
+    if(aptSum){
+      const sumEl=document.createElement("div");
+      sumEl.style.cssText="font-size:12px;color:var(--muted);margin-top:4px;font-style:italic";
+      sumEl.textContent='"'+aptSum+'"';
+      body.appendChild(sumEl);
+    }
+
+    card.appendChild(body);
+    el.appendChild(card);
   });
-  el.appendChild(div);
-  }catch(err){
-    el.innerHTML=`<div style="padding:20px;color:var(--red);font-size:13px">Error loading summary: ${err.message}</div>`;
-  }
 }
 
-// ── Apartment detail page ─────────────────────────────────────────────────────
 function renderAptPage(el){
   const base=BASES.find(b=>b.id===activeId);
-  const dd=D[activeId];if(!dd)return;
+  if(!base){el.innerHTML='<div style="padding:20px;color:var(--muted)">Apartment not found</div>';return;}
+  const dd=D[activeId];
+  if(!dd){D[activeId]=emptyApt(base);}
+  const d=D[activeId];
 
-  // Compute effective values (override > base)
-  const eRent=Number(dd.overrides?.rent||base.rent);
-  const eSqft=Number(dd.overrides?.sqft||base.sqft);
-  const eBeds=dd.overrides?.beds||base.beds;
-  const eUnits=dd.overrides?.units||base.units;
-  const eAvail=dd.overrides?.avail||base.avail;
-  const eFurn=dd.overrides?.furn||base.furn;
+  const eRent=Number(d.overrides&&d.overrides.rent!==undefined?d.overrides.rent:base.rent)||0;
+  const eSqft=Number(d.overrides&&d.overrides.sqft!==undefined?d.overrides.sqft:base.sqft)||0;
+  const eBeds=d.overrides&&d.overrides.beds!==undefined?d.overrides.beds:base.beds;
+  const eUnits=d.overrides&&d.overrides.units!==undefined?d.overrides.units:base.units;
+  const eAvail=d.overrides&&d.overrides.avail!==undefined?d.overrides.avail:base.avail;
+  const eFurn=d.overrides&&d.overrides.furn!==undefined?d.overrides.furn:base.furn;
   const psf=eSqft&&eRent?(eRent/eSqft).toFixed(2):null;
 
   // Info card
   const info=document.createElement("div");info.className="info";
-
-  // Cover photo area
-  const coverUrl=dd.coverThumb||(dd.coverPhotoId?`https://drive.google.com/thumbnail?id=${dd.coverPhotoId}&sz=w800`:"");
+  const coverUrl=d.coverThumb||(d.coverPhotoId?"https://drive.google.com/thumbnail?id="+d.coverPhotoId+"&sz=w800":"");
   const coverHtml=coverUrl
-    ?`<img class="cover-photo" src="${coverUrl}" onclick="window.open('${coverUrl}','_blank')" onerror="this.style.display='none'">`
-    :`<div class="cover-placeholder" onclick="document.getElementById('fileInput').click()">📸 Tap Photos below to add cover image</div>`;
+    ?'<img class="cover-photo" src="'+coverUrl+'" onclick="window.open(\''+coverUrl+'\',\'_blank\')" onerror="this.style.display=\'none\'">'
+    :'<div class="cover-placeholder">📸 Set a cover photo in Photos section below</div>';
 
-  info.innerHTML=`
-    <div class="info-time">⏰ ${base.time} · Built ${base.top}</div>
-    ${coverHtml}
-    <div class="info-grid" id="infoGrid"></div>
-    <div class="pg-row">
-      <span>PropertyGuru</span>
-      <input type="url" id="pgIn" placeholder="Paste URL…" value="${dd.pgLink||""}">
-      ${dd.pgLink?`<a href="${dd.pgLink}" target="_blank" style="font-size:20px;text-decoration:none">🔗</a>`:""}
-    </div>
-    <div class="apt-summary-row">
-      <div class="il">One-line summary</div>
-      <input class="apt-summary-input" id="aptSumIn" type="text" placeholder="e.g. Great views, small kitchen, good price…" value="${dd.aptSummary||""}">
-    </div>`;
+  info.innerHTML='<div class="info-time">⏰ '+(base.time||"")+(base.top?" · Built "+base.top:"")+'</div>'+coverHtml+'<div class="info-grid" id="infoGrid"></div>'
+    +'<div class="pg-row"><span>PropertyGuru</span><input type="url" id="pgIn" placeholder="Paste URL…" value="'+(d.pgLink||"")+'"></div>'
+    +'<div class="apt-summary-row"><div class="il">One-line summary</div><input class="apt-summary-input" id="aptSumIn" type="text" placeholder="e.g. Great views, small kitchen…" value="'+(d.aptSummary||"")+'"></div>';
   el.appendChild(info);
 
-  // Build editable info grid
+  // Info grid fields
   const grid=document.getElementById("infoGrid");
-  // Property name (non-editable)
   const nameDiv=document.createElement("div");
-  nameDiv.innerHTML=`<div class="il">Property</div><div class="iv sm">${base.full}</div>`;
+  nameDiv.innerHTML='<div class="il">Property</div><div class="iv sm">'+(base.full||base.name)+'</div>';
   grid.appendChild(nameDiv);
 
-  // Editable fields
-  const fields=[
-    {key:"rent",label:"Rent/mo",gold:true,val:"SGD "+eRent.toLocaleString()},
-    {key:"sqft",label:"Size",gold:false,val:eSqft.toLocaleString()+" sqft"},
-    {key:"psf",label:"Price/sqft",gold:true,val:psf?"SGD "+psf:"—",readonly:true},
-    {key:"beds",label:"Bedrooms",gold:false,val:String(eBeds)},
-    {key:"units",label:"Units in bldg",gold:false,val:String(eUnits)},
-    {key:"avail",label:"Move-in",gold:false,val:String(eAvail)},
-    {key:"furn",label:"Furnished",gold:false,val:String(eFurn)},
-  ];
-
-  fields.forEach(f=>{
-    const d=document.createElement("div");
+  [{key:"rent",label:"Rent/mo",gold:true,val:"SGD "+(eRent?eRent.toLocaleString():"—")},
+   {key:"sqft",label:"Size",gold:false,val:eSqft?eSqft.toLocaleString()+" sqft":"—"},
+   {key:"psf",label:"Price/sqft",gold:true,val:psf?"SGD "+psf:"—",ro:true},
+   {key:"beds",label:"Bedrooms",gold:false,val:String(eBeds||"—")},
+   {key:"units",label:"Units in bldg",gold:false,val:String(eUnits||"—")},
+   {key:"avail",label:"Move-in",gold:false,val:String(eAvail||"—")},
+   {key:"furn",label:"Furnished",gold:false,val:String(eFurn||"—")},
+  ].forEach(f=>{
+    const div=document.createElement("div");
     const valEl=document.createElement("div");
     valEl.className="iv"+(f.gold?" gold":"");
     valEl.textContent=f.val;
-    valEl.title="Double-tap to edit";
-    if(!f.readonly){
-      valEl.ondblclick=()=>startEditField(f.key,valEl,dd,base,el);
-      // On mobile, double-tap = two quick taps
+    if(!f.ro){
       let lastTap=0;
-      valEl.ontouchend=()=>{const now=Date.now();if(now-lastTap<350)startEditField(f.key,valEl,dd,base,el);lastTap=now;};
+      const doEdit=()=>startEdit(f.key,valEl,d,base);
+      valEl.ondblclick=doEdit;
+      valEl.ontouchend=()=>{const now=Date.now();if(now-lastTap<350)doEdit();lastTap=now;};
     }
-    d.innerHTML=`<div class="il">${f.label}</div>`;
-    d.appendChild(valEl);
-    grid.appendChild(d);
+    div.innerHTML='<div class="il">'+f.label+'</div>';
+    div.appendChild(valEl);
+    grid.appendChild(div);
   });
 
-  document.getElementById("pgIn").oninput=function(){dd.pgLink=this.value;save();};
-  document.getElementById("aptSumIn").oninput=function(){dd.aptSummary=this.value;save();};
+  document.getElementById("pgIn").oninput=function(){d.pgLink=this.value;save();};
+  document.getElementById("aptSumIn").oninput=function(){d.aptSummary=this.value;save();};
 
   // Categories
   CATS.forEach((cat,ci)=>{
     const sec=document.createElement("div");sec.className="cat";
-    const sc=catScore(dd,ci);
+    const sc=catScore(d,ci);
     const isOpen=openCats[ci]!==false;
     const hdr=document.createElement("div");hdr.className="cat-hdr"+(isOpen?"":" closed");
-    hdr.innerHTML=`<span style="font-size:18px">${cat.icon}</span>
-      <span style="font-family:Georgia,serif;font-size:15px;font-weight:600;flex:1">${cat.title}</span>
-      <span style="font-size:12px;color:var(--muted);background:var(--cream);padding:2px 8px;border-radius:10px;border:1px solid var(--border)">${sc?sc+"/5":"—"}</span>
-      <span style="font-size:11px;color:var(--muted)">${isOpen?"▲":"▼"}</span>`;
+    hdr.innerHTML='<span style="font-size:18px">'+cat.icon+'</span>'
+      +'<span style="font-family:Georgia,serif;font-size:15px;font-weight:600;flex:1">'+cat.title+'</span>'
+      +'<span style="font-size:12px;color:var(--muted);background:var(--cream);padding:2px 8px;border-radius:10px;border:1px solid var(--border)">'+(sc?sc+"/5":"—")+'</span>'
+      +'<span style="font-size:11px;color:var(--muted)">'+(isOpen?"▲":"▼")+'</span>';
     hdr.onclick=()=>{openCats[ci]=!openCats[ci];renderContent();};
     const body=document.createElement("div");body.className="cat-body"+(isOpen?" open":"");
     cat.cr.forEach((cr,ri)=>{
@@ -542,27 +499,27 @@ function renderAptPage(el){
       const lbl=document.createElement("div");lbl.className="crit-lbl";
       lbl.innerHTML=cr.l+(cr.p==="must"?' <span class="badge must">Must</span>':cr.p==="imp"?' <span class="badge imp">Important</span>':"");
       row.appendChild(lbl);
-      const fv=dd.fields[cr.id||key]||"",nv=dd.notes[key]||"",rv=dd.ratings[key]||0;
-      const sqft=parseFloat(dd.fields.sqft||eSqft),rent=parseFloat(dd.fields.rent||eRent);
+      const fv=d.fields[cr.id||key]||"",nv=d.notes[key]||"",rv=d.ratings[key]||0;
+      const sqft=parseFloat(d.fields.sqft||eSqft),rent=parseFloat(d.fields.rent||eRent);
       if(cr.t==="calc"){
-        const d=document.createElement("div");d.className="calc";
-        d.textContent=sqft>0&&rent>0?"SGD "+(rent/sqft).toFixed(2)+" / sqft":"Enter size & rent above";
-        row.appendChild(d);
+        const div=document.createElement("div");div.className="calc";
+        div.textContent=sqft>0&&rent>0?"SGD "+(rent/sqft).toFixed(2)+" / sqft":"Enter size & rent above";
+        row.appendChild(div);
       }else if(cr.t==="num"){
         const nr=document.createElement("div");nr.className="num-row";
         const inp=document.createElement("input");inp.type="number";inp.min=0;inp.placeholder="0";
-        inp.value=cr.id?(dd.fields[cr.id]||""):fv;
-        inp.oninput=function(){const k=cr.id||key;dd.fields[k]=this.value;save();if(cr.id==="sqft"||cr.id==="rent")renderContent();};
+        inp.value=cr.id?(d.fields[cr.id]||""):fv;
+        inp.oninput=function(){const k=cr.id||key;d.fields[k]=this.value;save();if(cr.id==="sqft"||cr.id==="rent")renderContent();};
         const un=document.createElement("span");un.className="num-unit";un.textContent=cr.unit;
         nr.appendChild(inp);nr.appendChild(un);row.appendChild(nr);
-        row.appendChild(mkTxt(nv,v=>{dd.notes[key]=v;save();}));
+        row.appendChild(mkTxt(nv,v=>{d.notes[key]=v;save();}));
       }else if(cr.t==="yn"||cr.t==="furnished"||cr.t==="window"){
         const opts=cr.t==="furnished"?["Fully","Partial","Unfurnished"]:cr.t==="window"?["Full height","Hip height","Mixed"]:["Yes","No","Unknown"];
-        row.appendChild(mkTogs(opts,fv,v=>{dd.fields[key]=v;save();renderContent();}));
-        row.appendChild(mkTxt(nv,v=>{dd.notes[key]=v;save();},cr.t==="furnished"?"What's included?":"Notes..."));
+        row.appendChild(mkTogs(opts,fv,v=>{d.fields[key]=v;save();renderContent();}));
+        row.appendChild(mkTxt(nv,v=>{d.notes[key]=v;save();},cr.t==="furnished"?"What's included?":"Notes..."));
       }else{
-        row.appendChild(mkStars(rv,v=>{dd.ratings[key]=v;save();renderContent();}));
-        row.appendChild(mkTxt(nv,v=>{dd.notes[key]=v;save();}));
+        row.appendChild(mkStars(rv,v=>{d.ratings[key]=v;save();renderContent();}));
+        row.appendChild(mkTxt(nv,v=>{d.notes[key]=v;save();}));
       }
       body.appendChild(row);
     });
@@ -571,127 +528,106 @@ function renderAptPage(el){
 
   // Photos & Videos
   const mediaDiv=document.createElement("div");mediaDiv.className="media-section";
-  mediaDiv.innerHTML=`
-    <div class="media-title">
-      <span>📸 Photos & Videos</span>
-      <div style="display:flex;gap:8px;align-items:center">
-        <a id="driveFolderLink" href="#" target="_blank" style="font-size:12px;color:var(--gold);text-decoration:none;font-weight:600;border:1px solid var(--gold);padding:6px 12px;border-radius:16px">📁 Drive</a>
-        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">＋ Add</button>
-      </div>
-    </div>
-    <p style="font-size:11px;color:var(--muted);margin-bottom:8px">Photos stored full-resolution in Google Drive. Tap ☆ Cover on any photo to show it in the summary.</p>
-    <input type="file" id="fileInput" accept="image/*,video/*" multiple>
-    <div id="mediaGrid" class="media-grid"><div class="media-empty">Loading…</div></div>`;
+  mediaDiv.innerHTML='<div class="media-title"><span>📸 Photos & Videos</span>'
+    +'<div style="display:flex;gap:8px;align-items:center">'
+    +'<a id="driveFolderLink" href="https://drive.google.com/drive/search?q='+encodeURIComponent(base.full||base.name)+'" target="_blank" style="font-size:12px;color:var(--gold);text-decoration:none;font-weight:600;border:1px solid var(--gold);padding:6px 12px;border-radius:16px">📁 Drive</a>'
+    +'<button class="upload-btn" onclick="document.getElementById(\'fileInput\').click()">＋ Add</button>'
+    +'</div></div>'
+    +'<p style="font-size:11px;color:var(--muted);margin-bottom:8px">Full-res photos saved to Google Drive. Tap ☆ Cover to show in summary.</p>'
+    +'<input type="file" id="fileInput" accept="image/*,video/*" multiple>'
+    +'<div id="mediaGrid" class="media-grid"><div class="media-empty">Loading…</div></div>';
   el.appendChild(mediaDiv);
 
-  // Set Drive folder link
-  const driveLink=document.getElementById("driveFolderLink");
-  if(driveLink){
-    driveLink.href="https://drive.google.com/drive/search?q="+encodeURIComponent(base.full);
-    // Try to upgrade to exact folder URL in background
-    getDriveFolderUrl(base.full).then(url=>{ if(url&&driveLink)driveLink.href=url; }).catch(()=>{});
-  }
+  getDriveFolderUrl(base.full||base.name).then(url=>{const lnk=document.getElementById("driveFolderLink");if(lnk&&url)lnk.href=url;}).catch(()=>{});
 
   document.getElementById("fileInput").onchange=async function(){
     const files=Array.from(this.files);if(!files.length)return;
-    document.getElementById("mediaGrid").innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:12px;font-size:12px;color:var(--gold)">Uploading…</div>`;
+    document.getElementById("mediaGrid").innerHTML='<div style="grid-column:1/-1;text-align:center;padding:12px;font-size:12px;color:var(--gold)">Uploading…</div>';
     for(const file of files){
-      try{
-        showStatus("Uploading "+file.name+"…","var(--gold)",true);
-        await uploadFile(base.full,file);
-        showStatus("✓ Uploaded — visible in Drive","var(--green)");
-      }catch(e){showStatus("⚠ Upload failed: "+e.message,"var(--red)",true);}
+      try{showStatus("Uploading "+file.name+"…","var(--gold)",true);await uploadFile(base.full||base.name,file);showStatus("✓ Uploaded","var(--green)");}
+      catch(e){showStatus("⚠ Upload failed","var(--red)",true);}
     }
-    renderMediaGrid(base.full,dd);this.value="";
+    renderMediaGrid(base.full||base.name,d);this.value="";
   };
-  renderMediaGrid(base.full,dd);
+  renderMediaGrid(base.full||base.name,d);
 
   // Score + Status
-  const sc=calcOverall(dd),pct=sc?parseFloat(sc)/5*100:0;
-  const rated=Object.values(dd.ratings).filter(r=>r>0).length;
+  const sc=calcOverall(d),pct=sc?parseFloat(sc)/5*100:0;
+  const rated=Object.values(d.ratings).filter(r=>r>0).length;
   const box=document.createElement("div");box.className="dark-box";
-  box.innerHTML=`
-    <h3>Overall impression</h3>
-    <textarea id="overallNote" placeholder="General notes…">${dd.overall||""}</textarea>
-    <h3 style="margin-top:16px">Score</h3>
-    <div class="score-grid">
-      <div><div class="score-lbl">Overall</div><div class="score-val">${sc?sc+"/5":"—"}</div></div>
-      <div><div class="score-lbl">Criteria rated</div><div class="score-val">${rated}</div></div>
-    </div>
-    <div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div>
-    <h3 style="margin-bottom:12px">Status</h3>
-    <div class="status-togs">
-      <button class="stog shortlist${dd.status==="shortlist"?" on":""}" onclick="setStatus('shortlist')">⭐ Short list</button>
-      <button class="stog ok${dd.status==="ok"?" on":""}" onclick="setStatus('ok')">👍 OK</button>
-      <button class="stog discard${dd.status==="discard"?" on":""}" onclick="setStatus('discard')">✗ Discard</button>
-    </div>`;
+  box.innerHTML='<h3>Overall impression</h3>'
+    +'<textarea id="overallNote" placeholder="General notes…">'+(d.overall||"")+'</textarea>'
+    +'<h3 style="margin-top:16px">Score</h3>'
+    +'<div class="score-grid"><div><div class="score-lbl">Overall</div><div class="score-val">'+(sc?sc+"/5":"—")+'</div></div>'
+    +'<div><div class="score-lbl">Criteria rated</div><div class="score-val">'+rated+'</div></div></div>'
+    +'<div class="bar"><div class="bar-fill" style="width:'+pct+'%"></div></div>'
+    +'<h3 style="margin-bottom:12px">Status</h3>'
+    +'<div class="status-togs">'
+    +'<button class="stog shortlist'+(d.status==="shortlist"?" on":"")+ '" onclick="setStatus(\'shortlist\')">⭐ Short list</button>'
+    +'<button class="stog ok'+(d.status==="ok"?" on":"")+ '" onclick="setStatus(\'ok\')">👍 OK</button>'
+    +'<button class="stog discard'+(d.status==="discard"?" on":"")+ '" onclick="setStatus(\'discard\')">✗ Discard</button>'
+    +'</div>';
   el.appendChild(box);
-  document.getElementById("overallNote").oninput=function(){dd.overall=this.value;save();};
+  document.getElementById("overallNote").oninput=function(){d.overall=this.value;save();};
 }
 
 function setStatus(val){
-  const dd=D[activeId];if(!dd)return;
-  dd.status=dd.status===val?"":val;
+  const d=D[activeId];if(!d)return;
+  d.status=d.status===val?"":val;
   save();renderContent();
 }
 
-// ── Inline edit for info card fields ─────────────────────────────────────────
-function startEditField(key,valEl,dd,base,pageEl){
-  const current=dd.overrides?.[key]!==undefined?dd.overrides[key]:base[key];
-  const inp=document.createElement("input");
-  inp.className="iv-edit";
-  inp.value=String(current);
+function startEdit(key,valEl,d,base){
+  const cur=d.overrides&&d.overrides[key]!==undefined?d.overrides[key]:base[key];
+  const inp=document.createElement("input");inp.className="iv-edit";
+  inp.value=String(cur||"");
   inp.type=(key==="rent"||key==="sqft"||key==="beds"||key==="units")?"number":"text";
-  valEl.replaceWith(inp);
-  inp.focus();inp.select();
+  valEl.replaceWith(inp);inp.focus();inp.select();
   function commit(){
-    if(!dd.overrides)dd.overrides={};
-    dd.overrides[key]=inp.type==="number"?Number(inp.value):inp.value;
+    if(!d.overrides)d.overrides={};
+    d.overrides[key]=inp.type==="number"?Number(inp.value):inp.value;
     save();renderContent();
   }
   inp.onblur=commit;
   inp.onkeydown=e=>{if(e.key==="Enter")inp.blur();if(e.key==="Escape"){inp.onblur=null;renderContent();}};
 }
 
-// ── Media grid with cover photo selection ─────────────────────────────────────
-async function renderMediaGrid(aptName,dd){
+async function renderMediaGrid(aptName,d){
   const grid=document.getElementById("mediaGrid");if(!grid)return;
   const files=await loadMedia(aptName);
-  if(!files.length){grid.innerHTML=`<div class="media-empty" style="grid-column:1/-1">No photos yet — tap + Add to upload</div>`;return;}
+  if(!files.length){grid.innerHTML='<div class="media-empty" style="grid-column:1/-1">No photos yet — tap + Add to upload</div>';return;}
   grid.innerHTML="";
   files.forEach(f=>{
     const div=document.createElement("div");div.className="media-thumb";
-    const isCover=dd&&dd.coverPhotoId===f.id;
+    const isCover=d&&d.coverPhotoId===f.id;
     if(f.mimeType&&f.mimeType.startsWith("image/")){
-      div.innerHTML=`<img src="${f.thumb||f.url}" loading="lazy" onclick="window.open('${f.url}','_blank')">`;
-      div.innerHTML+=`<button class="cover-btn${isCover?" active":""}" onclick="setCover('${f.id}',this,'${f.thumb||f.url}')">${isCover?"★ Cover":"☆ Cover"}</button>`;
+      div.innerHTML='<img src="'+(f.thumb||f.url)+'" loading="lazy" onclick="window.open(\''+f.url+'\',\'_blank\')">';
+      div.innerHTML+='<button class="cover-btn'+(isCover?" active":"")+'" onclick="setCover(\''+f.id+'\',\''+f.thumb+'\')">'+( isCover?"★ Cover":"☆ Cover")+'</button>';
     }else{
-      div.innerHTML=`<div style="width:100%;height:100%;background:#222;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="window.open('${f.url}','_blank')"><span style="font-size:32px">🎬</span></div><span class="video-badge">VIDEO</span>`;
+      div.innerHTML='<div style="width:100%;height:100%;background:#222;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="window.open(\''+f.url+'\',\'_blank\')"><span style="font-size:32px">🎬</span></div><span class="video-badge">VIDEO</span>';
     }
-    div.innerHTML+=`<button class="del-btn" onclick="deleteMedia('${f.id}','${aptName}')">×</button>`;
+    div.innerHTML+='<button class="del-btn" onclick="deleteMedia(\''+f.id+'\',\''+aptName+'\')">×</button>';
     grid.appendChild(div);
   });
 }
 
-function setCover(fileId, btn, thumbUrl) {
-  const dd=D[activeId];if(!dd)return;
-  if(dd.coverPhotoId===fileId){
-    dd.coverPhotoId="";dd.coverThumb="";
-  } else {
-    dd.coverPhotoId=fileId;
-    // Compress thumb for summary card — fetch image and resize to 120px
-    if(thumbUrl){
+function setCover(fileId,thumbUrl){
+  const d=D[activeId];if(!d)return;
+  if(d.coverPhotoId===fileId){d.coverPhotoId="";d.coverThumb="";}
+  else{
+    d.coverPhotoId=fileId;
+    if(thumbUrl&&thumbUrl!=="undefined"){
       const img=new Image();img.crossOrigin="anonymous";
       img.onload=function(){
-        const MAX=120;
+        const MAX=120,canvas=document.createElement("canvas");
         let w=img.width,h=img.height;
         if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;}
-        const canvas=document.createElement("canvas");canvas.width=w;canvas.height=h;
+        canvas.width=w;canvas.height=h;
         canvas.getContext("2d").drawImage(img,0,0,w,h);
-        dd.coverThumb=canvas.toDataURL("image/jpeg",0.7);
+        d.coverThumb=canvas.toDataURL("image/jpeg",0.7);
         save();
       };
-      img.onerror=()=>{dd.coverThumb="";save();};
+      img.onerror=()=>{d.coverThumb="";save();};
       img.src=thumbUrl;
     }
   }
@@ -700,10 +636,14 @@ function setCover(fileId, btn, thumbUrl) {
 
 async function deleteMedia(fileId,aptName){
   if(!confirm("Delete this photo/video?"))return;
-  const dd=D[activeId];
-  if(dd&&dd.coverPhotoId===fileId)dd.coverPhotoId="";
-  try{await apiPost({action:"delete",fileId});showStatus("Deleted","var(--green)");renderMediaGrid(aptName,dd);}
-  catch(e){showStatus("⚠ Delete failed","var(--red)",true);}
+  const d=D[activeId];
+  if(d&&d.coverPhotoId===fileId){d.coverPhotoId="";d.coverThumb="";}
+  try{
+    const body=JSON.stringify({action:"delete",fileId});
+    await fetch(API_URL,{method:"POST",body,redirect:"follow"});
+    showStatus("Deleted","var(--green)");
+  }catch(e){showStatus("⚠ Delete failed","var(--red)",true);}
+  renderMediaGrid(aptName,d);
 }
 
 function mkStars(val,onChange){
@@ -724,13 +664,13 @@ function mkTogs(opts,val,onChange){
     b.onclick=()=>onChange(val===o?null:o);div.appendChild(b);
   });return div;
 }
-function catScore(dd,ci){
+function catScore(d,ci){
   let t=0,n=0;
-  CATS[ci].cr.forEach((cr,ri)=>{if(cr.t)return;const r=dd.ratings[ci+"-"+ri];if(r){t+=r;n++;}});
+  CATS[ci].cr.forEach((cr,ri)=>{if(cr.t)return;const r=d.ratings[ci+"-"+ri];if(r){t+=r;n++;}});
   return n?(t/n).toFixed(1):null;
 }
-function calcOverall(dd){
-  let t=0,n=0;CATS.forEach((_,ci)=>{const s=catScore(dd,ci);if(s){t+=parseFloat(s);n++;}});
+function calcOverall(d){
+  let t=0,n=0;CATS.forEach((_,ci)=>{const s=catScore(d,ci);if(s){t+=parseFloat(s);n++;}});
   return n?(t/n).toFixed(1):null;
 }
 
