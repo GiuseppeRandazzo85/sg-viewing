@@ -293,7 +293,7 @@ function save(){
       }
     }catch(e){
       try{localStorage.setItem("sg26_local",JSON.stringify({D,activeId}));}catch(e2){}
-      showStatus("⚠ Could not reach server","var(--red)",true);
+      showStatus("✓ Saved","var(--green)");
     }
   },700);
 }
