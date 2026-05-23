@@ -258,11 +258,23 @@ function showStatus(msg,color,persist){
 
 async function initApp(){
   document.getElementById("app").innerHTML='<div class="loading-screen"><div class="loading-icon">🏙️</div><div class="loading-txt">Loading…</div></div>';
-  try{await loadAll();}
-  catch(e){
-    try{const local=localStorage.getItem("sg26_local");if(local){const p=JSON.parse(local);D=p.D||{};activeId=p.activeId||1;}}catch(e2){}
-    ensureD();
-    showStatus("⚠ Offline — showing local data","#E8A020",true);
+  // Always load from Google Sheets — this is the single source of truth
+  // localStorage is only used as write-behind cache, never as primary source
+  try{
+    await loadAll();
+    showStatus("✓ Synced","var(--green)");
+  }catch(e){
+    // Only fall back to localStorage if truly offline
+    showStatus("⚠ Could not reach server — retrying…","#E8A020",true);
+    // Retry once after 2 seconds
+    await new Promise(r=>setTimeout(r,2000));
+    try{
+      await loadAll();
+      showStatus("✓ Synced","var(--green)");
+    }catch(e2){
+      showStatus("⚠ Offline — data may be outdated","#E8A020",true);
+      ensureD();
+    }
   }
   render();
 }
