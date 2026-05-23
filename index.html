@@ -206,7 +206,7 @@ const INFO_FIELDS=[
   {key:"furn",   label:"Furnished",   gold:false, fmt:v=>v},
 ];
 
-let D={}, activeId="summary", openCats={}, saveTimer=null;
+let D={}, activeId=1, openCats={}, saveTimer=null;
 
 function emptyApt(b){
   return{id:b.id,ratings:{},notes:{},fields:{sqft:String(b.sqft),rent:String(b.rent)},
@@ -397,7 +397,10 @@ function scrollToTop(){window.scrollTo({top:0,behavior:"smooth"});}
 function renderContent(){
   const el=document.getElementById("content");if(!el)return;
   el.innerHTML="";
-  if(activeId==="summary"){renderSummaryPage(el);return;}
+  if(activeId==="summary"||activeId===0||activeId==="0"){
+    activeId="summary";
+    renderSummaryPage(el);return;
+  }
   renderAptPage(el);
 }
 
