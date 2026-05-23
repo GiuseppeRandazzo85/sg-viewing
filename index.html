@@ -129,7 +129,7 @@ textarea{width:100%;font-size:13px;color:var(--dark);background:var(--cream);bor
 <div id="status"></div>
 <div id="app"></div>
 <script>
-const HARDCODED_URL="https://script.google.com/macros/s/AKfycbzkoue28wAlzpCRBeGAKB1BnWcDMP934tLfuzbyCVrlKXrqGymrRJQSUKr9qETB2wV4/exec";
+const HARDCODED_URL="https://script.google.com/macros/s/AKfycbx296KlekI5cJT01EIfQ-Egf39tQ516OJriTlGhYXHWC5EYR5JXKfpRSfj3m7M6Eky9/exec";
 let API_URL=HARDCODED_URL;
 try{localStorage.setItem("sg_api_url",HARDCODED_URL);}catch(e){}
 
@@ -243,18 +243,31 @@ async function apiGet(params){
   return r.json();
 }
 async function apiPost(body){
+  // Use POST for uploads (large payloads), GET for everything else
+  if(body.action==="upload"||body.action==="delete"){
+    try{
+      const r=await fetch(API_URL,{
+        method:"POST",
+        headers:{"Content-Type":"text/plain"},
+        body:JSON.stringify(body),
+        redirect:"follow"
+      });
+      const text=await r.text();
+      try{return JSON.parse(text);}catch(e){return{ok:true};}
+    }catch(e){
+      // CORS fallback: try GET without the binary data
+      return{ok:false,error:e.message};
+    }
+  }
+  // All other actions via GET
   const params={...body};
   if(params.value)params.value=encodeURIComponent(params.value);
-  if(params.data)params.data=encodeURIComponent(params.data);
   const r=await fetch(API_URL+"?"+new URLSearchParams(params),{redirect:"follow"});
-  // Apps Script sometimes returns non-JSON on redirect — try parsing, but don't fail if we can't
   try{
     const text=await r.text();
-    const json=JSON.parse(text);
-    return json;
+    return JSON.parse(text);
   }catch(e){
-    // If we can't parse JSON but the request went through, treat as success
-    return {ok:true};
+    return{ok:true};
   }
 }
 
