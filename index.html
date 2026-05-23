@@ -215,7 +215,7 @@ function save(){
       try{await r.text();}catch(e){}
       showStatus("✓ Saved","var(--green)");
     }catch(e){
-      showStatus("⚠ Could not save — check connection","var(--red)",true);
+      showStatus("⚠ "+e.message,"var(--red)",true);
     }
   },700);
 }
