@@ -580,11 +580,17 @@ function renderAptPage(el){
     <div id="mediaGrid" class="media-grid"><div class="media-empty">Loading…</div></div>`;
   el.appendChild(mediaDiv);
 
-  // Load and show Drive folder link
-  getDriveFolderUrl(base.full).then(url=>{
-    const link=document.getElementById("driveFolderLink");
-    if(link&&url){link.href=url;link.style.display="inline";}
-  });
+  // Show Drive folder link immediately — opens Drive search for this apartment
+  const driveLink=document.getElementById("driveFolderLink");
+  if(driveLink){
+    // Try to get exact folder URL, fall back to Drive search
+    driveLink.href="https://drive.google.com/drive/search?q="+encodeURIComponent(base.full);
+    driveLink.style.display="inline";
+    // Also try to get the exact folder URL in background
+    getDriveFolderUrl(base.full).then(url=>{
+      if(url&&driveLink)driveLink.href=url;
+    }).catch(()=>{});
+  }
 
   document.getElementById("fileInput").onchange=async function(){
     const files=Array.from(this.files);if(!files.length)return;
