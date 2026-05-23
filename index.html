@@ -405,6 +405,8 @@ function renderContent(){
 }
 
 function renderSummaryPage(el){
+  try{
+  ensureD();
   const sorted=[...BASES].sort((a,b)=>{
     const sa=calcOverall(D[a.id]),sb=calcOverall(D[b.id]);
     if(!sa&&!sb)return0;if(!sa)return1;if(!sb)return-1;
@@ -413,7 +415,7 @@ function renderSummaryPage(el){
   const div=document.createElement("div");div.className="sum-page";
   div.innerHTML=`<h2>🏆 Rankings</h2><p class="sub">Tap any apartment to open its assessment</p>`;
   sorted.forEach((base,i)=>{
-    const dd=D[base.id];if(!dd)return;
+    const dd=D[base.id]||emptyApt(base);
     const sc=calcOverall(dd);
     const status=dd.status||"";
     const statusHtml=status==="shortlist"?`<span class="apt-status-badge shortlist">⭐ Short listed</span>`:
@@ -441,6 +443,9 @@ function renderSummaryPage(el){
     div.appendChild(card);
   });
   el.appendChild(div);
+  }catch(err){
+    el.innerHTML=`<div style="padding:20px;color:var(--red);font-size:13px">Error loading summary: ${err.message}</div>`;
+  }
 }
 
 // ── Apartment detail page ─────────────────────────────────────────────────────
