@@ -94,8 +94,11 @@ textarea{width:100%;font-size:13px;color:var(--dark);background:var(--cream);bor
 <div id="app"></div>
 
 <script>
-// ── CONFIG — paste your Apps Script URL here after deploying ─────────────────
-let API_URL = localStorage.getItem("sg_api_url") || "";
+// ── CONFIG — hardcoded URL so it works in standalone home screen mode ────────
+const HARDCODED_URL = "https://script.google.com/macros/s/AKfycby1GU5Df1rB64zsUCLkgt8S4U04N70rtl1lSFP_JXQvXLuLYbJfuYkTpnLP0axiNqUi/exec";
+let API_URL = HARDCODED_URL;
+// Also persist in localStorage as backup
+try { localStorage.setItem("sg_api_url", HARDCODED_URL); } catch(e) {}
 
 const CATS=[
   {icon:"📍",title:"Location & Connectivity",cr:[
@@ -281,7 +284,7 @@ async function connectAPI(){
 // ── Init ──────────────────────────────────────────────────────────────────────
 async function initApp(){
   document.getElementById("app").innerHTML=`<div class="loading-screen"><div class="loading-icon">🏙️</div><div class="loading-txt">Loading…</div></div>`;
-  if(!API_URL){showSetup();return;}
+  // URL is hardcoded — skip setup screen
   try{
     await loadAll();
     render();
