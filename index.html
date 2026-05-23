@@ -196,7 +196,11 @@ async function apiGet(params){
 async function loadAll(){
   const res=await apiGet({action:"read"});
   if(res.ok&&res.data&&res.data.viewingData){
-    try{const p=JSON.parse(res.data.viewingData);D=p.D||{};activeId=p.activeId||1;}catch(e){}
+    try{
+      const p=JSON.parse(res.data.viewingData);
+      D=p.D||{};
+      activeId=p.activeId||1;
+    }catch(e){}
   }
   ensureD();
 }
@@ -209,11 +213,9 @@ function save(){
       const params={action:"write",key:"viewingData",value:encodeURIComponent(JSON.stringify({D,activeId}))};
       const r=await fetch(API_URL+"?"+new URLSearchParams(params),{redirect:"follow"});
       try{await r.text();}catch(e){}
-      try{localStorage.setItem("sg26_local",JSON.stringify({D,activeId}));}catch(e){}
       showStatus("✓ Saved","var(--green)");
     }catch(e){
-      try{localStorage.setItem("sg26_local",JSON.stringify({D,activeId}));}catch(e2){}
-      showStatus("✓ Saved","var(--green)");
+      showStatus("⚠ Could not save — check connection","var(--red)",true);
     }
   },700);
 }
@@ -258,22 +260,16 @@ function showStatus(msg,color,persist){
 
 async function initApp(){
   document.getElementById("app").innerHTML='<div class="loading-screen"><div class="loading-icon">🏙️</div><div class="loading-txt">Loading…</div></div>';
-  // Always load from Google Sheets — this is the single source of truth
-  // localStorage is only used as write-behind cache, never as primary source
   try{
     await loadAll();
-    showStatus("✓ Synced","var(--green)");
   }catch(e){
-    // Only fall back to localStorage if truly offline
-    showStatus("⚠ Could not reach server — retrying…","#E8A020",true);
     // Retry once after 2 seconds
     await new Promise(r=>setTimeout(r,2000));
     try{
       await loadAll();
-      showStatus("✓ Synced","var(--green)");
     }catch(e2){
-      showStatus("⚠ Offline — data may be outdated","#E8A020",true);
-      ensureD();
+      document.getElementById("app").innerHTML='<div class="loading-screen"><div class="loading-icon">⚠️</div><div class="loading-txt" style="color:var(--red)">Could not connect.<br>Check your internet and reload.</div></div>';
+      return;
     }
   }
   render();
