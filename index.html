@@ -343,99 +343,147 @@ function renderContent(){
 }
 
 function renderSummaryPage(el){
-  // Sort all bases by score
   const sorted=[...BASES].sort((a,b)=>{
     const da=D[a.id],db=D[b.id];
     const sa=da?calcOverall(da):null,sb=db?calcOverall(db):null;
-    if(!sa&&!sb)return 0;
-    if(!sa)return 1;
-    if(!sb)return -1;
+    if(!sa&&!sb)return 0;if(!sa)return 1;if(!sb)return -1;
     return parseFloat(sb)-parseFloat(sa);
   });
 
   // Header
   const hdr=document.createElement("div");
-  hdr.style.cssText="padding:16px 0 8px 0";
-  hdr.innerHTML='<div style="font-family:Georgia,serif;font-size:18px;font-weight:600;color:var(--dark);margin-bottom:4px">🏆 Rankings</div><div style="font-size:12px;color:var(--muted);margin-bottom:12px">Tap any card to open that apartment</div>';
+  hdr.style.cssText="padding:16px 0 10px 0";
+  hdr.innerHTML='<div style="font-family:Georgia,serif;font-size:18px;font-weight:600;color:var(--dark);margin-bottom:2px">🏆 Rankings</div>'
+    +'<div style="font-size:12px;color:var(--muted)">Tap any card to open</div>';
   el.appendChild(hdr);
 
   sorted.forEach((base,i)=>{
-    const dd=D[base.id];
-    const sc=dd?calcOverall(dd):null;
-    const status=dd?dd.status||"":"";
-    const aptSum=dd?dd.aptSummary||"":"";
-    const coverThumb=dd?dd.coverThumb||"":"";
+    const dd=D[base.id]||{ratings:{},notes:{},fields:{},status:"",aptSummary:"",coverThumb:""};
+    const sc=calcOverall(dd);
+    const status=dd.status||"";
+    const coverThumb=dd.coverThumb||"";
+
+    // Effective values
+    const eRent=Number((dd.overrides&&dd.overrides.rent!==undefined)?dd.overrides.rent:base.rent)||0;
+    const eSqft=Number((dd.overrides&&dd.overrides.sqft!==undefined)?dd.overrides.sqft:base.sqft)||0;
+    const eBeds=(dd.overrides&&dd.overrides.beds!==undefined)?dd.overrides.beds:base.beds;
+    const psf=eSqft&&eRent?(eRent/eSqft).toFixed(2):null;
+
+    // Category scores
+    const catScores=CATS.map((_,ci)=>catScore(dd,ci));
+
+    // Status badge style
+    const statusStyle=status==="shortlist"?"background:#D4EDDA;color:#3A7C59":
+      status==="ok"?"background:#FFF3CD;color:#A07820":
+      status==="discard"?"background:#FFE5E5;color:var(--red)":"display:none";
+    const statusLabel=status==="shortlist"?"⭐ Short listed":status==="ok"?"👍 OK":status==="discard"?"✗ Discarded":"";
 
     const card=document.createElement("div");
-    card.style.cssText="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;display:flex;gap:10px;align-items:flex-start;cursor:pointer;active:background:#EDE8E0";
+    card.style.cssText="background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;cursor:pointer";
     card.onclick=()=>{activeId=base.id;render();scrollToTop();};
 
-    // Rank
-    const rankEl=document.createElement("div");
-    rankEl.style.cssText="font-size:20px;font-weight:700;color:var(--border);font-family:Georgia,serif;min-width:24px;padding-top:2px;text-align:center;flex-shrink:0";
-    rankEl.textContent=String(i+1);
-    card.appendChild(rankEl);
+    // Top row: cover photo + main info
+    const topRow=document.createElement("div");
+    topRow.style.cssText="display:flex;gap:0;align-items:stretch";
 
-    // Thumb
-    const thumbEl=document.createElement("div");
-    thumbEl.style.cssText="width:56px;height:56px;border-radius:8px;overflow:hidden;flex-shrink:0;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:22px";
+    // Cover photo (left side)
+    const photoEl=document.createElement("div");
+    photoEl.style.cssText="width:80px;flex-shrink:0;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden";
     if(coverThumb){
       const img=document.createElement("img");
       img.src=coverThumb;
       img.style.cssText="width:100%;height:100%;object-fit:cover";
-      thumbEl.appendChild(img);
+      photoEl.appendChild(img);
     }else{
-      thumbEl.textContent="🏙️";
+      photoEl.textContent="🏙️";
     }
-    card.appendChild(thumbEl);
+    topRow.appendChild(photoEl);
 
-    // Body
-    const body=document.createElement("div");
-    body.style.cssText="flex:1;min-width:0";
+    // Main info (right of photo)
+    const mainInfo=document.createElement("div");
+    mainInfo.style.cssText="flex:1;padding:12px;min-width:0";
 
-    const nameEl=document.createElement("div");
-    nameEl.style.cssText="font-family:Georgia,serif;font-size:14px;font-weight:600;color:var(--dark);margin-bottom:2px";
-    nameEl.textContent=base.name;
-    body.appendChild(nameEl);
+    // Name + rank row
+    const nameRow=document.createElement("div");
+    nameRow.style.cssText="display:flex;align-items:center;gap:8px;margin-bottom:4px";
+    const rankBadge=document.createElement("span");
+    rankBadge.style.cssText="font-size:11px;font-weight:700;color:var(--muted);background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1px 6px;flex-shrink:0";
+    rankBadge.textContent="#"+(i+1);
+    const nameSpan=document.createElement("span");
+    nameSpan.style.cssText="font-family:Georgia,serif;font-size:14px;font-weight:600;color:var(--dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap";
+    nameSpan.textContent=base.name;
+    nameRow.appendChild(rankBadge);
+    nameRow.appendChild(nameSpan);
+    mainInfo.appendChild(nameRow);
 
+    // Full name
     const fullEl=document.createElement("div");
-    fullEl.style.cssText="font-size:11px;color:var(--muted);margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";
+    fullEl.style.cssText="font-size:10px;color:var(--muted);margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";
     fullEl.textContent=base.full;
-    body.appendChild(fullEl);
+    mainInfo.appendChild(fullEl);
 
-    const metaEl=document.createElement("div");
-    metaEl.style.cssText="display:flex;align-items:center;gap:8px;flex-wrap:wrap";
+    // Key stats grid
+    const statsGrid=document.createElement("div");
+    statsGrid.style.cssText="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px 8px;margin-bottom:8px";
+    [
+      ["Rent","SGD "+(eRent?eRent.toLocaleString():"—")],
+      ["Size",eSqft?eSqft.toLocaleString()+" sqft":"—"],
+      ["Beds",eBeds||"—"],
+      ["PSF",psf?"SGD "+psf:"—"],
+    ].forEach(([label,val])=>{
+      const cell=document.createElement("div");
+      cell.innerHTML='<div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:1px">'+label+'</div>'
+        +'<div style="font-size:12px;font-weight:700;color:var(--dark);font-family:Georgia,serif">'+val+'</div>';
+      statsGrid.appendChild(cell);
+    });
+    mainInfo.appendChild(statsGrid);
 
+    // Overall score + status badge
+    const bottomRow=document.createElement("div");
+    bottomRow.style.cssText="display:flex;align-items:center;gap:8px;flex-wrap:wrap";
     const scoreEl=document.createElement("span");
     scoreEl.style.cssText="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--gold)";
     scoreEl.textContent=sc?sc+"/5":"—";
-    metaEl.appendChild(scoreEl);
-
-    if(status==="shortlist"||status==="ok"||status==="discard"){
+    bottomRow.appendChild(scoreEl);
+    if(status){
       const badge=document.createElement("span");
-      const styles={
-        shortlist:"background:#D4EDDA;color:#3A7C59",
-        ok:"background:#FFF3CD;color:#A07820",
-        discard:"background:#FFE5E5;color:var(--red)"
-      };
-      const labels={shortlist:"⭐ Short listed",ok:"👍 OK",discard:"✗ Discarded"};
-      badge.style.cssText="font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;"+styles[status];
-      badge.textContent=labels[status];
-      metaEl.appendChild(badge);
+      badge.style.cssText="font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;"+statusStyle;
+      badge.textContent=statusLabel;
+      bottomRow.appendChild(badge);
     }
-    body.appendChild(metaEl);
+    mainInfo.appendChild(bottomRow);
 
-    if(aptSum){
+    // Summary quote inline (compact, left side)
+    if(dd.aptSummary){
       const sumEl=document.createElement("div");
-      sumEl.style.cssText="font-size:12px;color:var(--muted);margin-top:4px;font-style:italic";
-      sumEl.textContent='"'+aptSum+'"';
-      body.appendChild(sumEl);
+      sumEl.style.cssText="font-size:11px;color:var(--muted);font-style:italic;margin-bottom:6px;line-height:1.4";
+      sumEl.textContent='"'+dd.aptSummary+'"';
+      mainInfo.insertBefore(sumEl,bottomRow);
     }
 
-    card.appendChild(body);
+    topRow.appendChild(mainInfo);
+    card.appendChild(topRow);
+
+    // Category scores row
+    const catRow=document.createElement("div");
+    catRow.style.cssText="display:flex;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--border);padding:8px 12px;gap:12px;-webkit-overflow-scrolling:touch";
+    catRow.style.cssText+="align-items:center";
+    CATS.forEach((cat,ci)=>{
+      const s=catScores[ci];
+      const cell=document.createElement("div");
+      cell.style.cssText="flex-shrink:0;text-align:center";
+      cell.innerHTML='<div style="font-size:14px;margin-bottom:2px">'+cat.icon+'</div>'
+        +'<div style="font-size:11px;font-weight:700;color:'+(s?'var(--gold)':'var(--border)')+';font-family:Georgia,serif">'+(s||"—")+'</div>';
+      catRow.appendChild(cell);
+    });
+    card.appendChild(catRow);
+
+
+
     el.appendChild(card);
   });
 }
+
 
 function renderAptPage(el){
   const base=BASES.find(b=>b.id===activeId);
@@ -463,7 +511,7 @@ function renderAptPage(el){
     +'<div class="pg-row"><span>PropertyGuru</span><input type="url" id="pgIn" placeholder="Paste URL…" value="'+(d.pgLink||"")+'">'
     +(d.pgLink?'<a id="pgLinkBtn" href="'+d.pgLink+'" target="_blank" style="flex-shrink:0;padding:7px 14px;background:var(--gold);color:white;border-radius:16px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap">Open ↗</a>':'')
     +'</div>'
-    +'<div class="apt-summary-row"><div class="il">One-line summary</div><input class="apt-summary-input" id="aptSumIn" type="text" placeholder="e.g. Great views, small kitchen…" value="'+(d.aptSummary||"")+'"></div>';
+    +'<div class="apt-summary-row"><div class="il">One-line summary</div><textarea class="apt-summary-input" id="aptSumIn" placeholder="e.g. Great views, small kitchen…" rows="2" style="resize:none;height:auto">'+(d.aptSummary||"")+'</textarea></div>';
   el.appendChild(info);
 
   // Info grid fields
