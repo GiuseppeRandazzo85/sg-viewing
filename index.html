@@ -461,7 +461,7 @@ function renderAptPage(el){
 
   info.innerHTML='<div class="info-time">⏰ '+(base.time||"")+(base.top?" · Built "+base.top:"")+'</div>'+coverHtml+'<div class="info-grid" id="infoGrid"></div>'
     +'<div class="pg-row"><span>PropertyGuru</span><input type="url" id="pgIn" placeholder="Paste URL…" value="'+(d.pgLink||"")+'">'
-    +(d.pgLink?'<a id="pgLinkBtn" href="'+(d.pgLink||"")+'" target="_blank" style="flex-shrink:0;padding:6px 12px;background:var(--gold);color:white;border-radius:16px;font-size:12px;font-weight:600;text-decoration:none">Open</a>':'<a id="pgLinkBtn" href="#" target="_blank" style="flex-shrink:0;padding:6px 12px;background:var(--gold);color:white;border-radius:16px;font-size:12px;font-weight:600;text-decoration:none;display:none">Open</a>')
+    +(d.pgLink?'<a id="pgLinkBtn" href="'+d.pgLink+'" target="_blank" style="flex-shrink:0;padding:7px 14px;background:var(--gold);color:white;border-radius:16px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap">Open ↗</a>':'')
     +'</div>'
     +'<div class="apt-summary-row"><div class="il">One-line summary</div><input class="apt-summary-input" id="aptSumIn" type="text" placeholder="e.g. Great views, small kitchen…" value="'+(d.aptSummary||"")+'"></div>';
   el.appendChild(info);
@@ -495,15 +495,10 @@ function renderAptPage(el){
     grid.appendChild(div);
   });
 
-  const pgIn=document.getElementById("pgIn");
-  const pgLinkBtn=document.getElementById("pgLinkBtn");
-  pgIn.oninput=function(){
+  document.getElementById("pgIn").oninput=function(){
     d.pgLink=this.value;
     save();
-    if(pgLinkBtn){
-      if(this.value){pgLinkBtn.href=this.value;pgLinkBtn.style.display="inline";}
-      else{pgLinkBtn.style.display="none";}
-    }
+    renderContent();
   };
   document.getElementById("aptSumIn").oninput=function(){d.aptSummary=this.value;save();};
 
