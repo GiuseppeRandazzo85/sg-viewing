@@ -212,7 +212,9 @@ async function loadAll(){
       // Restore custom apartments back into BASES
       if(p.customApts&&p.customApts.length){
         p.customApts.forEach(ca=>{
-          if(!BASES.find(b=>b.id===ca.id)) BASES.push(ca);
+          if(!BASES.find(b=>b.id===ca.id)){
+            BASES.push({...ca,custom:true});
+          }
         });
       }
     }catch(e){}
@@ -334,7 +336,7 @@ function addApartment(){
     overall:"",pgLink:"",aptSummary:"",status:"",
     coverPhotoId:"",coverThumb:"",overrides:{}};
   // Add to BASES so it shows in tabs
-  BASES.push({id,name:name.trim(),full:name.trim(),time:"",top:"",units:"",sqft:0,rent:0,beds:"",avail:"",furn:""});
+  BASES.push({id,name:name.trim(),full:name.trim(),time:"",top:"",units:"",sqft:0,rent:0,beds:"",avail:"",furn:"",custom:true});
   activeId=id;
   save();render();scrollToTop();
 }
