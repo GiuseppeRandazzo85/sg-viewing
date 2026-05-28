@@ -209,6 +209,12 @@ async function loadAll(){
       const p=JSON.parse(res.data.viewingData);
       D=p.D||{};
       activeId=p.activeId||1;
+      // Restore custom apartments back into BASES
+      if(p.customApts&&p.customApts.length){
+        p.customApts.forEach(ca=>{
+          if(!BASES.find(b=>b.id===ca.id)) BASES.push(ca);
+        });
+      }
     }catch(e){}
   }
   ensureD();
@@ -219,7 +225,8 @@ function save(){
   saveTimer=setTimeout(async()=>{
     showStatus("Saving…","var(--gold)",true);
     try{
-      const res=await apiCall({action:"write",key:"viewingData",value:JSON.stringify({D,activeId})});
+      const customApts=BASES.filter(b=>b.custom);
+      const res=await apiCall({action:"write",key:"viewingData",value:JSON.stringify({D,activeId,customApts})});
       showStatus("✓ Saved","var(--green)");
     }catch(e){
       showStatus("⚠ "+e.message,"var(--red)",true);
